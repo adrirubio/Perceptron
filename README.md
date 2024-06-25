@@ -60,4 +60,4 @@ We welcome contributions to improve Perceptron! Please fork the repository and s
 This project is licensed under the MIT License
 
 ## Contact
-For questions or support, please open an issue or contact adrian.rubio.punal@Gmail.com
+For questions or support, please open an issue or contact adrian.rubio.punal@gmail.com
