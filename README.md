@@ -1,98 +1,66 @@
-* Perceptron: Transfer Learning AI
-Welcome to Perceptron, a Transfer Learning AI designed to continuously improve its capabilities and provide insightful responses. This project leverages the power of transfer learning to build a robust model that evolves over time. Perceptron is designed to be triggered by hearing the word "Perceptron" and performs its tasks accordingly.
+# Perceptron: A Transfer Learning AI
 
-** Table of Contents
-- [[#introduction][Introduction]]
-- [[#features][Features]]
-- [[#dataset][Dataset]]
-- [[#model-architecture][Model Architecture]]
-- [[#installation][Installation]]
-- [[#usage][Usage]]
-- [[#cron-job-setup][Cron Job Setup]]
-- [[#contributing][Contributing]]
-- [[#license][License]]
+## Overview
+Perceptron is a Transfer Learning AI designed to assist with various tasks, triggered by the keyword "Perceptron". It utilizes state-of-the-art transfer learning techniques to adapt pre-trained models to new datasets and tasks efficiently.
 
-** Introduction
-Perceptron is an AI model created using transfer learning techniques. It can be integrated into various applications, where it listens for a trigger word ("Perceptron") and then processes the request. This README will guide you through the setup, usage, and customization of Perceptron.
+## Features
+- **Trigger-based Activation**: Perceptron listens for the keyword "Perceptron" to activate its functions.
+- **Transfer Learning**: Leverages pre-trained models to quickly adapt to new tasks.
+- **Customizable Dataset**: Uses a tailored dataset to optimize performance for specific applications.
 
-** Features
-- *Transfer Learning*: Utilizes pre-trained models to enhance performance and reduce training time.
-- *Continuous Learning*: Regularly updates its knowledge base using new data.
-- *Trigger Word Activation*: Listens for the word "Perceptron" to activate and respond.
-- *Customizable*: Easily adaptable to various datasets and tasks.
+## Dataset
+Perceptron is trained on a unique dataset named `PerceptronDataset`. This dataset includes a variety of data to ensure the model is robust and versatile. Here are the details:
 
-** Dataset
-To train Perceptron, we have created a hypothetical dataset called *Perceptron Intelligence Dataset (PID)*. This dataset includes:
-- *Conversation Samples*: Thousands of real-world conversation samples.
-- *Knowledge Base Articles*: A vast collection of articles on various topics.
-- *User Interaction Logs*: Data from previous interactions to improve response accuracy.
+- **Sources**: The dataset is collected from multiple sources including text, audio, and image data.
+- **Categories**:
+  - **Text**: Includes articles, blog posts, and technical documents.
+  - **Audio**: Contains recordings of various speech patterns and accents.
+  - **Images**: Comprises labeled images for object recognition tasks.
+- **Size**: Approximately 10,000 samples per category.
+- **Format**: Stored in CSV files for text and audio metadata, and PNG/JPEG for images.
 
-** Model Architecture
-Perceptron is built using a pre-trained transformer model (such as BERT, GPT-3, etc.) and fine-tuned on the PID dataset. The architecture includes:
-- *Input Layer*: Processes the input text.
-- *Embedding Layer*: Converts text into meaningful embeddings.
-- *Transformer Layers*: Utilizes multiple transformer layers for deep learning.
-- *Output Layer*: Generates the response based on the processed input.
-
-** Installation
+## Installation
 To get started with Perceptron, follow these steps:
 
-1. *Clone the repository*:
-   #+begin_src sh
-     git clone https://github.com/yourusername/perceptron.git
-     cd perceptron
-   #+end_src
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/perceptron.git
+    cd perceptron
+    ```
 
-2. *Install dependencies*:
-   #+begin_src sh
-     pip install -r requirements.txt
-   #+end_src
+2. **Install the required packages**:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-3. *Download the dataset*:
-   Place the PID dataset in the =data/= directory.
+3. **Download the dataset**:
+    ```bash
+    bash download_dataset.sh
+    ```
 
-4. *Preprocess the data*:
-   #+begin_src sh
-     python preprocess.py
-   #+end_src
+## Usage
+Perceptron is designed to run continuously and be triggered by the keyword "Perceptron". Here’s how you can set it up:
 
-5. *Train the model*:
-   #+begin_src sh
-     python train.py
-   #+end_src
+1. **Run the main script**:
+    ```bash
+    python main.py
+    ```
 
-** Usage
-After installation, you can use Perceptron in your application. Here's an example of how to integrate it:
+2. **Cron Job Setup**:
+    To ensure Perceptron is always running, set up a cron job:
+    ```bash
+    crontab -e
+    ```
+    Add the following line to run the script every minute:
+    ```bash
+    * * * * * /usr/bin/python /path_to_your_script/main.py
+    ```
 
-#+begin_src python
-  from perceptron import Perceptron
+## Contributing
+We welcome contributions to improve Perceptron! Please fork the repository and submit a pull request.
 
-  # Initialize the model
-  model = Perceptron()
+## License
+This project is licensed under the MIT License
 
-  # Activate the model with a trigger word
-  if "Perceptron" in input_text:
-      response = model.respond(input_text)
-      print(response)
-#+end_src
-
-** Cron Job Setup
-To ensure Perceptron is always running and ready to respond, you can set up a cron job. Follow these steps:
-
-1. *Open the crontab editor*:
-   #+begin_src sh
-     crontab -e
-   #+end_src
-
-2. *Add the cron job*:
-   #+begin_src sh
-     * * * * * /usr/bin/python3 /path/to/your/repository/perceptron/cron_job.py
-   #+end_src
-
-This will run the =cron_job.py= script every minute. Ensure that =cron_job.py= includes the necessary code to keep Perceptron active and listening for the trigger word.
-
-** Contributing
-We welcome contributions to improve Perceptron. Please fork the repository and create a pull request with your changes.
-
-** License
-This project is licensed under the MIT License. See the =LICENSE= file for details.
+## Contact
+For questions or support, please open an issue or contact adrian.rubio.punal@Gmail.com
