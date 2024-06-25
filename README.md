@@ -9,15 +9,12 @@ Perceptron is a Transfer Learning AI designed to assist with various tasks, trig
 - **Customizable Dataset**: Uses a tailored dataset to optimize performance for specific applications.
 
 ## Dataset
-Perceptron is trained on a unique dataset named `PerceptronDataset`. This dataset includes a variety of data to ensure the model is robust and versatile. Here are the details:
+Perceptron is fine-tuned on a comprehensive pre-trained text dataset to ensure robustness and versatility across various tasks.
 
-- **Sources**: The dataset is collected from multiple sources including text, audio, and image data.
-- **Categories**:
-  - **Text**: Includes articles, blog posts, and technical documents.
-  - **Audio**: Contains recordings of various speech patterns and accents.
-  - **Images**: Comprises labeled images for object recognition tasks.
-- **Size**: Approximately 10,000 samples per category.
-- **Format**: Stored in CSV files for text and audio metadata, and PNG/JPEG for images.
+### Dataset Details:
+- **Source**: Utilizes pre-trained models from Hugging Face Transformers, such as BERT, GPT-3, or similar.
+- **Categories**: Includes diverse text sources to cover a wide variety of contexts and styles.
+- **Format**: Text data in CSV format with columns for input text and associated labels (if any).
 
 ## Installation
 To get started with Perceptron, follow these steps:
