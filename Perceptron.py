@@ -28,4 +28,4 @@ def generate_response(prompt, model, tokenizer):
 prompt = "Hello, what are you up to?"
 if dataset:
     response = generate_response(prompt, model, tokenizer)
-    print("Question", response)
+    print("Question:", response)
