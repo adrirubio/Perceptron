@@ -30,6 +30,18 @@ if dataset:
     response = generate_response(prompt, model, tokenizer)
     print("Question:", response)
 
+# Example of the train dataset
+print(train_dataset[0])
+
+# Define the dialog section
+train_dialog = train_dataset['dialog']
+test_dialog = test_dataset['dialog']
+
+# Example of the train_dialog set
+print(train_dialog[5])
+
 # Access the train and test splits
 train_dataset = dataset['train']
 test_dataset = dataset['test']
+
+
