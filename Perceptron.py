@@ -29,3 +29,7 @@ prompt = "Hello, what are you up to?"
 if dataset:
     response = generate_response(prompt, model, tokenizer)
     print("Question:", response)
+
+# Access the train and test splits
+train_dataset = dataset['train']
+test_dataset = dataset['test']
