@@ -30,6 +30,10 @@ if dataset:
     response = generate_response(prompt, model, tokenizer)
     print("Question:", response)
 
+# Access the train and test splits
+train_dataset = dataset['train']
+test_dataset = dataset['test']
+
 # Example of the train dataset
 print(train_dataset[0])
 
@@ -40,8 +44,14 @@ test_dialog = test_dataset['dialog']
 # Example of the train_dialog set
 print(train_dialog[5])
 
-# Access the train and test splits
-train_dataset = dataset['train']
-test_dataset = dataset['test']
-
-
+# Create batches
+batch_size = 32
+train_loader = torch.utils.data.DataLoader(
+    train_dataset,
+    batch_size=batch_size,
+    shuffle=True
+)
+test_loader = torch.utils.data.DataLoader(
+    test_dataset,
+    batch_size=batch_size,
+)
