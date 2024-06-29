@@ -34,7 +34,7 @@ if dataset:
 train_dataset = dataset['train']
 test_dataset = dataset['test']
 
-# Example of the train dataset
+# Example of the train split
 print(train_dataset[0])
 
 # Define the dialog section
@@ -44,7 +44,7 @@ test_dialog = test_dataset['dialog']
 # Example of the train_dialog set
 print(train_dialog[5])
 
-# Create batches
+# Create batches for optimizing computational efficiency
 batch_size = 32
 train_loader = torch.utils.data.DataLoader(
     train_dataset,
