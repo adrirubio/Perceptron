@@ -55,3 +55,7 @@ test_loader = torch.utils.data.DataLoader(
     test_dataset,
     batch_size=batch_size,
 )
+
+# Define the model by freezing the weights
+for param in model.transformer.wte.parameters():
+  param.requires_grad = False
