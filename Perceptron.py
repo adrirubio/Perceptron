@@ -67,7 +67,6 @@ for layer in model.transformer.h[:-1]:
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters())
 
-
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
   # Arrays to store the loss values for each epoch
   train_losses = np.zeros(epochs)
