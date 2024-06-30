@@ -62,3 +62,7 @@ for param in model.transformer.wte.parameters():
 for layer in model.transformer.h[:-1]:
   for param in layer.parameters():
     param.requires_grad = False
+
+# Loss and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters())
