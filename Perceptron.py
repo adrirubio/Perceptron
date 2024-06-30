@@ -66,30 +66,3 @@ for layer in model.transformer.h[:-1]:
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters())
-
-# Start the training loop
-def batch_dg(model, criterion, optimizer, train_loader, test_loader, epochs):
-  # Arrays to store the loss values for each epoch
-  train_losses = np.zeros(epochs)
-  test_losses = np.zeros(epochs)
-
-  # Start training loop
-  for it in range(epochs):
-    # Set datatime 
-    t0 = datetime.now()
-    train_loss = []
-    for inputs, taragts in train_loader:
-      # Move data to the GPU if available
-      inputs, targets = inputs.to(device), targets.to(device)
-
-      # Zero the parameter gradients
-      optimizer.zero_grad()
-
-      # Forward pass
-      loss.backward()
-      optimizer.step()
-
-      train_loss.append(loss.item())
-    
-    # Get train loss
-    train_loss = np.mean(train_loss) # a little misleading
