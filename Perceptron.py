@@ -99,7 +99,10 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
       # Forward pass
       outputs = model(inputs)
-      loss = criterion(outputs, targets)
+      logits = outputs.logits  # Extract the logits
+      shift_logits = logits[..., :-1, :].contiguous()
+      shift_labels = targets[..., 1:].contiguous()
+      loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
 
       # Backward and optimize
       loss.backward()
