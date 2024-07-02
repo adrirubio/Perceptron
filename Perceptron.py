@@ -133,3 +133,12 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
       Test Loss: {test_loss:.4f}, Duration: {dt}')
 
   return train_losses, test_losses
+
+train_losses, test_losses = batch_gd(
+    model,
+    criterion,
+    optimizer,
+    train_loader,
+    test_loader,
+    epochs=5,
+)
