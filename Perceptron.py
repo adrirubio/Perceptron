@@ -117,7 +117,10 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     for inputs, targets in test_loader:
       inputs, targets = inputs.to(device), targets.to(device)
       outputs = model(inputs)
-      loss = criterion(outputs, targets)
+      logits = outputs.logits  # Extract the logits
+      shift_logits = logits[..., :-1, :].contiguous()
+      shift_labels = targets[..., 1:].contiguous()
+      loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
       test_loss.append(loss.item())
     test_loss = np.mean(test_loss)
 
