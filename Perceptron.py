@@ -12,6 +12,7 @@ dataset = load_dataset('daily_dialog')
 
 # Load GPT-2 tokenizer and model
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+tokenizer.pad_token = tokenizer.eos_token  # Set padding token
 model = GPT2LMHeadModel.from_pretrained('gpt2')
 
 # Move model to GPU if available
@@ -31,19 +32,31 @@ if dataset:
     response = generate_response(prompt, model, tokenizer)
     print("Question:", response)
 
-# Access the train and test splits
-train_dataset = dataset['train']
-test_dataset = dataset['test']
+# Access the dialog sections
+train_dialog = dataset['train']['dialog']
+test_dialog = dataset['test']['dialog']
 
-# Example of the train split
-print(train_dataset[0])
+# Create custom Dataset class
+class DailyDialogDataset(Dataset):
+    def __init__(self, dialogues, tokenizer, max_length=512):
+        self.dialogues = dialogues
+        self.tokenizer = tokenizer
+        self.max_length = max_length
 
-# Define the dialog section
-train_dialog = train_dataset['dialog']
-test_dialog = test_dataset['dialog']
+    def __len__(self):
+        return len(self.dialogues)
 
-# Example of the train_dialog set
-print(train_dialog[5])
+    def __getitem__(self, idx):
+        dialogue = " ".join(self.dialogues[idx])
+        encoded = self.tokenizer(dialogue, truncation=True, padding='max_length', max_length=self.max_length, return_tensors='pt')
+        input_ids = encoded['input_ids'].squeeze()
+        attention_mask = encoded['attention_mask'].squeeze()
+        return input_ids, input_ids  # Returning input_ids as both input and target
+
+# Create train and test dataset instances
+train_dataset = DailyDialogDataset(train_dialog, tokenizer)
+test_dataset = DailyDialogDataset(test_dialog, tokenizer)
+
 
 # Create batches for optimizing computational efficiency
 batch_size = 32
