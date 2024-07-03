@@ -167,3 +167,23 @@ for inputs, targets in train_loader:
   n_total += targets.shape[0]
 
 train_acc = n_correct / n_total
+
+
+n_correct = 0.
+n_total = 0.
+for inputs, targets in test_loader:
+  inputs, targets = inputs.to(device), targets.to(device)
+
+  # Forward pass
+  outputs = model(inputs)
+
+  # Get prediction
+  # torch.max returns both max and argmax
+  _, predictions = torch.max(outputs, 1)
+
+  # update counts
+  n_correct += (predictions == targets).sum().item()
+  n_total += targets.shape[0]
+
+test_acc = n_correct / n_total
+print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
