@@ -142,3 +142,9 @@ train_losses, test_losses = batch_gd(
     test_loader,
     epochs=5,
 )
+
+# Plot the train loss and test loss per iteration
+plt.plot(train_losses, label='train loss')
+plt.plot(test_losses, label='test loss')
+plt.legend()
+plt.show()
