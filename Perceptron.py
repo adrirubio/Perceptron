@@ -134,6 +134,11 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
       Test Loss: {test_loss:.4f}, Duration: {dt}')
 
+    # Early stopping
+    if it > 0 and test_losses[it] > test_losses[it-1]:
+      print("Early stopping")
+      break
+
   return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
@@ -142,7 +147,7 @@ train_losses, test_losses = batch_gd(
     optimizer,
     train_loader,
     test_loader,
-    epochs=5,
+    epochs=10, # change number of epochs
 )
 
 # Plot the train loss and test loss per iteration
