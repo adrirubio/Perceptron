@@ -70,12 +70,14 @@ test_loader = torch.utils.data.DataLoader(
     batch_size=batch_size,
 )
 
-# Defining the model by freezing the weights
+# Unfreeze some layers
 for param in model.transformer.wte.parameters():
-  param.requires_grad = False
-for layer in model.transformer.h[:-1]:
+  param.requires_grad = True
+for param in model.transformer.wpe.parameters():
+  param.requires_grad = True
+for layer in model.transformer.h[-4:]:  # Unfreeze last 4 layers
   for param in layer.parameters():
-    param.requires_grad = False
+    param.requires_grad = True
 
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
