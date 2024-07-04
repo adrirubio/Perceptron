@@ -117,6 +117,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     train_loss = np.mean(train_loss) # a little misleading
 
     test_loss = []
+    model.eval() # Set model to evaluation mode
     for inputs, targets in test_loader:
       inputs, targets = inputs.to(device), targets.to(device)
       outputs = model(inputs)
