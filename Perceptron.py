@@ -158,6 +158,11 @@ plt.plot(test_losses, label='test loss')
 plt.legend()
 plt.show()
 
+# Save the model
+model_save_path = 'gpt2_daily_dialog_model.pth'
+torch.save(model.state_dict(), model_save_path)
+print(f'Model saved to {model_save_path}')
+
 # Accuracy
 n_correct = 0.
 n_total = 0.
