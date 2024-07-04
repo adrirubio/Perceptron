@@ -92,6 +92,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     # Set datetime
     t0 = datetime.now()
     train_loss = []
+    model.train() # Set model to training mode
     for inputs, targets in train_loader:
       # Move data to GPU if available
       inputs, targets = inputs.to(device), targets.to(device)
