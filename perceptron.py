@@ -13,3 +13,7 @@ import vlc
 import random
 import os
 from pywttr import Wttr
+
+def say(text):
+    engine.say(text)
+    engine.runAndWait()
