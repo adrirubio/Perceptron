@@ -54,3 +54,13 @@ model.eval()
 # Move model to GPU if available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
+
+
+while True:
+    
+    try:
+        with sr.Microphone() as source:                                                                       
+            print("Speak:")                                                                                   
+            audio = recorder.listen(source)
+        print("Recognizing:")
+        text = recorder.recognize_google(audio)
