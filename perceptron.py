@@ -21,3 +21,7 @@ def say(text):
 def weather():
     engine.say("The average temperature in Vera is " + forecast.weather[0].avgtemp_c + " degrees celsius")
     engine.runAndWait()
+
+def sound(path):
+    mixer.music.load(path)
+    mixer.music.play()
