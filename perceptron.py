@@ -35,3 +35,12 @@ def generate_response(prompt, model, tokenizer):
     outputs = model.generate(inputs, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
+
+# Load GPT-2 tokenizer and model
+tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+model = GPT2LMHeadModel.from_pretrained('gpt2')
+wttr = Wttr("Vera")
+forecast = wttr.en()
+engine = pyttsx3.init()
+mixer.init()
+recorder = sr.Recognizer()
