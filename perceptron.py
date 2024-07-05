@@ -64,3 +64,9 @@ while True:
             audio = recorder.listen(source)
         print("Recognizing:")
         text = recorder.recognize_google(audio)
+
+        # If perceptron is in the text continue
+        if str("Perceptron") in text:
+            sound("/home/adrian/Downloads/ding.mp3")
+            text = text.replace("Perceptron", "")
+            print("you said: " + text)
