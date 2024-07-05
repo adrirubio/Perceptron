@@ -57,7 +57,6 @@ model.to(device)
 
 
 while True:
-    
     try:
         with sr.Microphone() as source:                                                                       
             print("Speak:")                                                                                   
