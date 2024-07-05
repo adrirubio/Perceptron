@@ -36,6 +36,7 @@ def generate_response(prompt, model, tokenizer):
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
 
+
 # Load GPT-2 tokenizer and model
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 model = GPT2LMHeadModel.from_pretrained('gpt2')
@@ -44,3 +45,12 @@ forecast = wttr.en()
 engine = pyttsx3.init()
 mixer.init()
 recorder = sr.Recognizer()
+
+# Load the trained model weights
+model_save_path = "gpt2_dailydialog.pt"
+model.load_state_dict(torch.load(model_save_path))
+model.eval()
+
+# Move model to GPU if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
