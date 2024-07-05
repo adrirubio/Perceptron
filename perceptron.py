@@ -69,3 +69,27 @@ while True:
             sound("/home/adrian/Downloads/ding.mp3")
             text = text.replace("Perceptron", "")
             print("you said: " + text)
+
+            # Plays music
+            if "play music" in text:
+                song = vlc.MediaPlayer("/home/adrian/Downloads/mercy.mp3")
+                say("Ok, playing...")
+                print("VLC is starting...")
+                song.play()
+                print("VLC is playing...")
+
+            # Stops music
+            elif "stop music" in text:
+                say("Ok, stopping...")
+                print("VLC is stopping...")
+                song.stop()
+
+            # Searches on google
+            elif "Google" in text:
+                say("Ok, searching...")
+                pywhatkit.search(text)
+
+            # Gets the time
+            elif "time" in text:
+                time = datetime.datetime.now().strftime("%H:%M")
+                say("curren time is " + time)
