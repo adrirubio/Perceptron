@@ -17,3 +17,7 @@ from pywttr import Wttr
 def say(text):
     engine.say(text)
     engine.runAndWait()
+
+def weather():
+    engine.say("The average temperature in Vera is " + forecast.weather[0].avgtemp_c + " degrees celsius")
+    engine.runAndWait()
