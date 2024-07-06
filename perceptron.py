@@ -115,3 +115,7 @@ while True:
                 fart = vlc.MediaPlayer(ranfart)
                 time.sleep(2)
                 fart.play()
+
+            # Uses the trained model for question that are not manual
+            response = generate_response(text, model, tokenizer)
+            print("Response:", response)
