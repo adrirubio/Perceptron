@@ -121,4 +121,8 @@ while True:
                 response = generate_response(text, model, tokenizer)
                 print("Response:", response)
 
-
+    except sr.UnknownValueError:
+        print("UnknownValueError")
+        pass
+    except sr.RequestError:
+        print("RequestError")        
