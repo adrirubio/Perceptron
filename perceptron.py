@@ -99,3 +99,9 @@ while True:
                 person = text.replace("who is", "")
                 info = wikipedia.summary(person, 1)
                 say(info)
+
+            # Says the weather
+            elif "weather" in text:
+                weather()
+                
+                
