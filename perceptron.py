@@ -93,3 +93,9 @@ while True:
             elif "time" in text:
                 time = datetime.datetime.now().strftime("%H:%M")
                 say("curren time is " + time)
+
+            # Searches for someone on wikipedia
+            elif "who is" in text:
+                person = text.replace("who is", "")
+                info = wikipedia.summary(person, 1)
+                say(info)
