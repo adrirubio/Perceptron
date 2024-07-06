@@ -103,5 +103,15 @@ while True:
             # Says the weather
             elif "weather" in text:
                 weather()
-                
-                
+
+            # Even make a special feature to choose a random fart!!!
+            elif "fart" in text:
+                list1 = ["/home/adrian/Downloads/01.mp3",
+                         "/home/adrian/Downloads/02.mp3",
+                         "/home/adrian/Downloads/03.mp3",
+                         "/home/adrian/Downloads/04.mp3",
+                         "/home/adrian/Downloads/05.mp3"]
+                ranfart = random.choice(list1)
+                fart = vlc.MediaPlayer(ranfart)
+                time.sleep(2)
+                fart.play()
