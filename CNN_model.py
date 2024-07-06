@@ -13,3 +13,17 @@ transformer_train = transforms.Compose([
     transforms.RandomAffine(0, translate=(0.1, 0.1)),
     transforms.ToTensor(),
 ])
+
+# Load CIFAR-100 training dataset
+train_dataset = torchvision.datasets.CIFAR100(
+    root='./data',
+    train=True,
+    transform=transformer_train,
+    download=True)
+
+# Load CIFAR-100 test dataset
+test_dataset = torchvision.datasets.CIFAR100(
+    root='./data',
+    train=False,
+    transform=transforms.ToTensor(),
+    download=True)
