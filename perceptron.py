@@ -120,3 +120,5 @@ while True:
                 # Uses the trained model if it shouldn't be a manual response
                 response = generate_response(text, model, tokenizer)
                 print("Response:", response)
+
+
