@@ -117,3 +117,8 @@ def forward(self, x):
 
 # Instantiate the model
 model = CNN(K)
+
+# Mode model to the GPU
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
+model.to(device)
