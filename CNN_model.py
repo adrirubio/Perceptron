@@ -126,3 +126,13 @@ model.to(device)
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+# Training loop
+def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
+  train_losses = np.zeros(epochs)
+  test_losses = np.zeros(epochs)
+
+  for it in range(epochs):
+    model.train() # Set model to training mode
+    t0 = datatime.now()
+    train_loss = []
