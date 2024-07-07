@@ -44,3 +44,8 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=batch_size,
                                           shuffle=False)
 
+for inputs, targets in train_loader:
+  print("Inputs: ", inputs)
+  print("Targets: ", targets)
+  break
+
