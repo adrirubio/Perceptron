@@ -27,3 +27,7 @@ test_dataset = torchvision.datasets.CIFAR100(
     train=False,
     transform=transforms.ToTensor(),
     download=True)
+
+# Define number of classes in our case 100
+K = len(set(train_dataset.targets))
+print("Number of classes: ", K)
