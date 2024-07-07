@@ -49,3 +49,13 @@ for inputs, targets in train_loader:
   print("Targets: ", targets)
   break
 
+# Create DataLoader for training without data augmentation (for accuracy evaluation)
+train_dataset_fixed = torchvision.datasets.CIFAR100(
+    root=".",
+    train=True,
+    transform=transforms.ToTensor(),
+    download=True)
+train_loader_fixed = torch.utils.data.DataLoader(
+    dataset=train_dataset_fixed,
+    batch_size=batch_size,
+    shuffle=False)
