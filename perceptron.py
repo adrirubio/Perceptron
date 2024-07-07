@@ -51,11 +51,6 @@ model_save_path = "gpt2_dailydialog.pt"
 model.load_state_dict(torch.load(model_save_path))
 model.eval()
 
-# Move model to GPU if available
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
-
-
 while True:
     try:
         with sr.Microphone() as source:                                                                       
