@@ -31,3 +31,11 @@ test_dataset = torchvision.datasets.CIFAR100(
 # Define number of classes in our case 100
 K = len(set(train_dataset.targets))
 print("Number of classes: ", K)
+
+# Data loader
+# Useful because it automatically generates batches in the training loop
+# and takes care of shuffling
+batch_size = 64
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+                                           batch_size=batch_size,
+                                           shuffle=True)
