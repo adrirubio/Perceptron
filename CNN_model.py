@@ -110,9 +110,9 @@ def forward(self, x):
   x = x.view(x.size(0), -1)
 
   # Forward pass through the dense layers with ReLU and Dropout
-  x = self.dropout(x, p=0.5)
+  x = self.dropout(x)
   x = self.relu(self.fc1(x))
-  x = self.dropout(x, p=0.2)
+  x = self.dropout(x)
   x = self.fc2(x)
 
 # Instantiate the model
