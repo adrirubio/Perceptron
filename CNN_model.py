@@ -191,8 +191,8 @@ train_losses, test_losses = batch_gd(
     model, criterion, optimizer, train_loader, test_loader, epochs=80)
 
 # Plot the test and train loss
-plt.plot(train_losses, lable="train loss")
-plt.plot(test_losses, lable="test loss")
+plt.plot(train_losses, label="train loss")
+plt.plot(test_losses, label="test loss")
 plt.legend()
 plt.show()
 
