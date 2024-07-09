@@ -219,6 +219,26 @@ for inputs and targets in train_loader_fixed:
   # Update counts
   n_correct += (predictions == targets).sum().item()
   n_total += targets.shape[0]
-
-# Get train accuracy
+ 
+# Getting train accuracy
 train_acc = n_correct / n_total
+
+n_correct = 0.
+n_total = 0.
+for inputs, targets in test_loader:
+  # Move to GPU
+  inputs, targets = inputs.to(device), targets.to(device)
+
+  # Forward pass
+  outputs = model(inputs)
+
+  # Get prediction
+  # torch.max returns both max and argmax
+  _, predictions = torch.max(outputs, 1)
+
+  # update counts
+  n_correct += (predictions == targets).sum().item()
+  n_total += targets.shape[0]
+
+test_acc = n_correct / n_total
+print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
