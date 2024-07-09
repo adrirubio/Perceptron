@@ -200,3 +200,25 @@ plt.show()
 model_save_path = "gpt2_daily_dialog_model.pth"
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
+
+# Accuracy
+model.eval()
+n_correct = 0
+n_total = 0
+for inputs and targets in train_loader_fixed:
+  # Move inputs and targets to the GPU
+  inputs, targets = inputs.to(device), targets.to(device)
+
+  # Forward pass
+  outputs = model(inputs)
+
+  # Get prediction
+  # Torch.max returns both max and argmax
+  _, predictions = torch.max(outputs, 1)
+
+  # Update counts
+  n_correct += (predictions == targets).sum().item()
+  n_total += targets.shape[0]
+
+# Get train accuracy
+train_acc = n_correct / n_total
