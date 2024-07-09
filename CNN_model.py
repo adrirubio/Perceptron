@@ -241,3 +241,35 @@ for inputs, targets in test_loader:
 
 test_acc = n_correct / n_total
 print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
+
+# Define transformation for input image
+transformer_test = transforms.ToTensor()
+
+# Function to predict class of a single image
+def predict_image(image_path, model, transformers):
+  # Load and transform the image
+  image = Image.open(image_path)
+  image = transformer(image).unsqueeze # Add batch dimension
+
+  # Move the image to the GPU
+  image = image.to(device)
+
+  # Set model to evaluation mode
+  model.eval()
+
+  # Perform the inference
+  outputs = model(inputs)
+  _, predicted = torch.max(outputs, 1)
+
+  # Map prediction to class name
+  predicted_class = predicted.item()
+  return predicted class
+
+
+# Load the trained model
+model.load_state_dict(torch.load(model_save_path))
+
+# Predict the class of a single image
+image_path = "C:/Users/pepep/OneDrive/Imagenes/image_CNN.jpg"
+predicted_class = predict_image(image_path, model, transformer_test)
+print(f"The predicted class for the image is: {predicted_class}")
