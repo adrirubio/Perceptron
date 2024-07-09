@@ -197,7 +197,7 @@ plt.legend()
 plt.show()
 
 # Save model
-model_save_path = "gpt2_daily_dialog_model.pth"
+model_save_path = "cnn_cifar100_model.pth"
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
 
