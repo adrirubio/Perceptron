@@ -263,7 +263,7 @@ def predict_image(image_path, model, transformers):
 
   # Map prediction to class name
   predicted_class = predicted.item()
-  return predicted class
+  return predicted_class
 
 
 # Load the trained model
