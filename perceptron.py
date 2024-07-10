@@ -64,6 +64,8 @@ forecast = wttr.en()
 engine = pyttsx3.init()
 mixer.init()
 recorder = sr.Recognizer()
+# Perform transformations on input image
+transformer_test = transforms.ToTensor()
 
 # Load the trained model weights
 model_save_path = "gpt2_dailydialog.pt"
