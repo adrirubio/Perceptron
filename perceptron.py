@@ -31,12 +31,29 @@ def sound(path):
     mixer.music.load(path)
     mixer.music.play()
 
-# Function to generate responses
+# Function to generate responses using Transfer Learning model
 def generate_response(prompt, model, tokenizer):
     inputs = tokenizer.encode(prompt, return_tensors='pt').to(device)
     outputs = model.generate(inputs, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
+
+# Function to generate predict images using CNN model
+def predict_images(image_path, model, transformer):
+    # Load and transform image
+    image = Image.open(image_path)
+    image = transform(image).unsqueeze(0)
+
+    # Set model to evaluation mode
+    model.eval()
+
+    # Perform inference
+    outputs = model(inputs)
+    _, predicted = torch.max(outputs, 1)
+
+    # Return predicted class
+    predicted_class = predicted.item()
+    return predicted_class
 
 
 # Load GPT-2 tokenizer and model
