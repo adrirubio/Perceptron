@@ -137,6 +137,7 @@ while True:
                 time.sleep(2)
                 fart.play()
 
+            # Predicts the class of an image
             elif "image" in text:
                 say("Please input your image path")
                 image_path = input("Input your image path: ")
