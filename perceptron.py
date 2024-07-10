@@ -72,6 +72,11 @@ model_save_path = "gpt2_dailydialog.pt"
 model.load_state_dict(torch.load(model_save_path))
 model.eval()
 
+# Load the trained model
+model_save_path = "cnn_cifar100_model.pth"
+model = CNN(K)  # Instantiate your CNN model
+model.load_state_dict(torch.load(model_save_path))
+
 while True:
     try:
         with sr.Microphone() as source:                                                                       
