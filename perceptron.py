@@ -1,6 +1,8 @@
 # Add necessary imports
 import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import torchvision.transforms as transforms
+from PIL import Image
 import speech_recognition as sr
 import pyaudio
 import pywhatkit
@@ -111,10 +113,9 @@ while True:
                 time.sleep(2)
                 fart.play()
 
-            else:
-                # Uses the trained model if it shouldn't be a manual response
-                response = generate_response(text, model, tokenizer)
-                print("Response:", response)
+            elif "image" in text:
+                say("Please input your image path")
+                path = input("Input your image path: ")
 
     except sr.UnknownValueError:
         print("UnknownValueError")
