@@ -139,7 +139,14 @@ while True:
 
             elif "image" in text:
                 say("Please input your image path")
-                path = input("Input your image path: ")
+                image_path = input("Input your image path: ")
+                predicted_class = predict_image(image_path, model, transformer_test)
+                print(f"The predicted class for the image is: {predicted_class}")
+
+            else:
+                # Uses the trained model if it shouldn't be a manual response
+                response = generate_response(text, model, tokenizer)
+                print("Response:", response)
 
     except sr.UnknownValueError:
         print("UnknownValueError")
