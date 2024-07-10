@@ -143,6 +143,7 @@ while True:
                 image_path = input("Input your image path: ")
                 predicted_class = predict_image(image_path, model, transformer_test)
                 print(f"The predicted class for the image is: {predicted_class}")
+                say(f"The predicted class for the image is: {predicted_class}")
 
             else:
                 # Uses the trained model if it shouldn't be a manual response
