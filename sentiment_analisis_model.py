@@ -47,3 +47,7 @@ train_labels = torch.tensor(train_labels)
 test_input_ids = torch.tensor(test_encodings["input_ids"])
 train_attention_mask = torch.tensor(test_encodings["attention_mask"])
 test_labels = torch.tensor(test_labels)
+
+# Create tensor datasets
+train_dataset = TensorDataset(train_input_ids, train_attention_mask, train_labels)
+test_dataset = TensorDataset(test_input_ids, test_attention_mask, test_labels)
