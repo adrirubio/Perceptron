@@ -38,3 +38,12 @@ train_labels = train_dataset["label"]
 # Tokenize and encode the test_dataset
 test_encodings = tokenizer(test_dataset["sentence"], truncation=True, padding=True, max_length=128)
 test_labels = test_dataset["label"]
+
+# Convert to PyTorch tensors
+train_input_ids = torch.tensor(train_encodings["inputs_ids"])
+train_attention_mask = torch.tensor(train_encodings["attention_mask"])
+train_labels = torch.tensor(train_labels)
+
+test_input_ids = torch.tensor(test_encodings["input_ids"])
+train_attention_mask = torch.tensor(test_encodings["attention_mask"])
+test_labels = torch.tensor(test_labels)
