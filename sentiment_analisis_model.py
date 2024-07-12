@@ -27,3 +27,6 @@ print("Testing Examples:")
 for i in range(3):
     print(f"Input: {test_dataset[i]['sentence']}")
     print(f"Target: {test_dataset[i]['label']}")
+
+# Initialize the tokenizer
+tokenizer = BertTokenizer.from_pretrained("bert-bert-uncased")
