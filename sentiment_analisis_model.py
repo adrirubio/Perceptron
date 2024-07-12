@@ -30,3 +30,11 @@ for i in range(3):
 
 # Initialize the tokenizer
 tokenizer = BertTokenizer.from_pretrained("bert-bert-uncased")
+
+# Tokenize and encode the train_dataset
+train_encodings = tokenizer(train_dataset["sentence"], truncation=True, padding=True, max_length=128)
+train_labels = train_dataset["label"]
+
+# Tokenize and encode the test_dataset
+test_encodings = tokenizer(test_dataset["sentence"], truncation=True, padding=True, max_length=128)
+test_labels = test_dataset["label"]
