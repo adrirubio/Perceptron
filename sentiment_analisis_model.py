@@ -108,7 +108,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
       outputs = model(inputs)
       loss = criterion(outputs, targets)
 
-      loss = criterion(outputs, targets)
+      loss = criterion(logits, targets)
 
       # Backward and optimize
       loss.backward()
@@ -128,7 +128,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
       # Forward pass
       outputs = model(inputs)
-      loss = criterion(outputs, targets)
+      loss = criterion(logits, targets)
 
       test_loss.append(loss.item())
     
