@@ -106,8 +106,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
       # Forward pass
       outputs = model(inputs)
-      loss = criterion(outputs, targets)
-
+      logits = outputs.logits  # Extract the logits
       loss = criterion(logits, targets)
 
       # Backward and optimize
@@ -122,16 +121,17 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     model.eval()
     test_loss = []
     for inputs, targets in test_loader:
-      
+
       # Move data to the GPU
       inputs, targets = inputs.to(device), targets.to(device)
 
       # Forward pass
       outputs = model(inputs)
+      logits = outputs.logits  # Extract the logits
       loss = criterion(logits, targets)
 
       test_loss.append(loss.item())
-    
+
     # Get test loss
     test_loss = np.mean(test_loss)
 
@@ -140,14 +140,14 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     test_losses[it] = test_loss
 
     dt = datetime.now() - t0
-      
+
     print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
       Test Loss: {test_loss:.4f}, Duration: {dt}')
-    
+
   return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
-    model, criterion, optimizer, train_loader, test_loader, epochs=80)
+    model, criterion, optimizer, train_loader, test_loader, epochs=5)
 
 # Plot the train and test loss
 plt.plot(train_losses, label="train_loss")
