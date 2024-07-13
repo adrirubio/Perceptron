@@ -43,16 +43,14 @@ test_labels = test_dataset["label"]
 
 # Convert to PyTorch tensors
 train_input_ids = torch.tensor(train_encodings["input_ids"])
-train_attention_mask = torch.tensor(train_encodings["attention_mask"])
 train_labels = torch.tensor(train_labels)
 
 test_input_ids = torch.tensor(test_encodings["input_ids"])
-test_attention_mask = torch.tensor(test_encodings["attention_mask"])
 test_labels = torch.tensor(test_labels)
 
 # Create tensor datasets
-train_dataset = TensorDataset(train_input_ids, train_attention_mask, train_labels)
-test_dataset = TensorDataset(test_input_ids, test_attention_mask, test_labels)
+train_dataset = TensorDataset(train_input_ids, train_labels)
+test_dataset = TensorDataset(test_input_ids, test_labels)
 
 # Data loader
 # Useful because it automatically generates batches in the training loop
@@ -80,6 +78,11 @@ for batch in test_loader:
 
 # Define the model
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
+
+# Mode model to the GPU
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
+model.to(device)
 
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
