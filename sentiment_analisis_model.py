@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 from datasets import load_dataset
+from transformers import BertTokenizer
+from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -29,7 +31,7 @@ for i in range(3):
     print(f"Target: {test_dataset[i]['label']}")
 
 # Initialize the tokenizer
-tokenizer = BertTokenizer.from_pretrained("bert-bert-uncased")
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 # Tokenize and encode the train_dataset
 train_encodings = tokenizer(train_dataset["sentence"], truncation=True, padding=True, max_length=128)
@@ -40,12 +42,12 @@ test_encodings = tokenizer(test_dataset["sentence"], truncation=True, padding=Tr
 test_labels = test_dataset["label"]
 
 # Convert to PyTorch tensors
-train_input_ids = torch.tensor(train_encodings["inputs_ids"])
+train_input_ids = torch.tensor(train_encodings["input_ids"])
 train_attention_mask = torch.tensor(train_encodings["attention_mask"])
 train_labels = torch.tensor(train_labels)
 
 test_input_ids = torch.tensor(test_encodings["input_ids"])
-train_attention_mask = torch.tensor(test_encodings["attention_mask"])
+test_attention_mask = torch.tensor(test_encodings["attention_mask"])
 test_labels = torch.tensor(test_labels)
 
 # Create tensor datasets
