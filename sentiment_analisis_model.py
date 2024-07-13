@@ -53,3 +53,16 @@ test_labels = torch.tensor(test_labels)
 # Create tensor datasets
 train_dataset = TensorDataset(train_input_ids, train_attention_mask, train_labels)
 test_dataset = TensorDataset(test_input_ids, test_attention_mask, test_labels)
+
+# Data loader
+# Useful because it automatically generates batches in the training loop
+# and takes care of shuffling
+
+batch_size = 128
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+                                           batch_size=batch_size,
+                                           shuffle=True)
+
+test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
+                                          batch_size=batch_size,
+                                          shuffle=False)
