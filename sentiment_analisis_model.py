@@ -77,3 +77,7 @@ print("\nTesting Batch Example:")
 for batch in test_loader:
     print(batch)
     break  # Just to display one batch
+
+# Loss and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
