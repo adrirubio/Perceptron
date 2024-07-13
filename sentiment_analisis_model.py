@@ -154,3 +154,8 @@ plt.plot(train_losses, label="train_loss")
 plt.plot(test_losses, label="test_loss")
 plt.legend()
 plt.show()
+
+# Save model
+model_save_path = "sentiment_analisis_model.pth"
+torch.save(model.state_dict(), model_save_path)
+print(f"Model saved to {model_save_path}")
