@@ -81,3 +81,17 @@ for batch in test_loader:
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
+  # Arrays to store the loss values for each epoch
+  train_losses = np.zeros(epochs)
+  test_losses = np.zeros(epochs)
+
+  for it in range(epochs):
+    # Set datetime
+    t0 = datetime.now()
+    train_loss = []
+    model.train() # Set model to training mode
+    for inputs, targets in train_loader:
+      # Move data to GPU if available
+      inputs, targets = inputs.to(device), targets.to(device)
