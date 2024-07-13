@@ -78,6 +78,9 @@ for batch in test_loader:
     print(batch)
     break  # Just to display one batch
 
+# Define the model
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
+
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
