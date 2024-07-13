@@ -148,3 +148,9 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
 train_losses, test_losses = batch_gd(
     model, criterion, optimizer, train_loader, test_loader, epochs=80)
+
+# Plot the train and test loss
+plt.plot(train_losses, label="train_loss")
+plt.plot(test_losses, label="test_loss")
+plt.legend()
+plt.show()
