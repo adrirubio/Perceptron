@@ -85,16 +85,63 @@ model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_l
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
+# Training loop
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
-  # Arrays to store the loss values for each epoch
   train_losses = np.zeros(epochs)
   test_losses = np.zeros(epochs)
 
   for it in range(epochs):
-    # Set datetime
+    model.train() # Set model to training mode
     t0 = datetime.now()
     train_loss = []
-    model.train() # Set model to training mode
     for inputs, targets in train_loader:
-      # Move data to GPU if available
+      # move data to GPU
       inputs, targets = inputs.to(device), targets.to(device)
+
+      # zero the parameter gradients
+      optimizer.zero_grad()
+
+      # Forward pass
+      outputs = model(inputs)
+      loss = criterion(outputs, targets)
+
+      loss = criterion(outputs, targets)
+
+      # Backward and optimize
+      loss.backward()
+      optimizer.step()
+
+      train_loss.append(loss.item())
+
+    # Get train loss and test loss
+    train_loss = np.mean(train_loss) # a little misleading
+
+    model.eval()
+    test_loss = []
+    for inputs, targets in test_loader:
+      
+      # Move data to the GPU
+      inputs, targets = inputs.to(device), targets.to(device)
+
+      # Forward pass
+      outputs = model(inputs)
+      loss = criterion(outputs, targets)
+
+      test_loss.append(loss.item())
+    
+    # Get test loss
+    test_loss = np.mean(test_loss)
+
+    # Save losses
+    train_losses[it] = train_loss
+    test_losses[it] = test_loss
+
+    dt = datetime.now() - t0
+      
+    print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
+      Test Loss: {test_loss:.4f}, Duration: {dt}')
+    
+  return train_losses, test_losses
+
+train_losses, test_losses = batch_gd(
+    model, criterion, optimizer, train_loader, test_loader, epochs=80)
