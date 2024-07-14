@@ -43,14 +43,16 @@ test_labels = test_dataset["label"]
 
 # Convert to PyTorch tensors
 train_input_ids = torch.tensor(train_encodings["input_ids"])
+train_attention_masks = torch.tensor(train_encodings["attention_mask"])
 train_labels = torch.tensor(train_labels)
 
 test_input_ids = torch.tensor(test_encodings["input_ids"])
+test_attention_masks = torch.tensor(test_encodings["attention_mask"*)
 test_labels = torch.tensor(test_labels)
 
 # Create tensor datasets
-train_dataset = TensorDataset(train_input_ids, train_labels)
-test_dataset = TensorDataset(test_input_ids, test_labels)
+train_dataset = TensorDataset(train_input_ids, train_attention_masks, train_labels)
+test_dataset = TensorDataset(test_input_ids, test_attention_masks, test_labels)
 
 # Data loader
 # Useful because it automatically generates batches in the training loop
@@ -97,15 +99,15 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     model.train() # Set model to training mode
     t0 = datetime.now()
     train_loss = []
-    for inputs, targets in train_loader:
+    for inputs, masks, targets in train_loader:
       # move data to GPU
-      inputs, targets = inputs.to(device), targets.to(device)
+      inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
       # zero the parameter gradients
       optimizer.zero_grad()
 
       # Forward pass
-      outputs = model(inputs)
+      outputs = model(inputs, attention_mask=masks)
       logits = outputs.logits  # Extract the logits
       loss = criterion(logits, targets)
 
@@ -120,13 +122,13 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
     model.eval()
     test_loss = []
-    for inputs, targets in test_loader:
+    for inputs, masks, targets in test_loader:
 
       # Move data to the GPU
-      inputs, targets = inputs.to(device), targets.to(device)
+      inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
       # Forward pass
-      outputs = model(inputs)
+      outputs = model(inputs, attention_mask=masks)
       logits = outputs.logits  # Extract the logits
       loss = criterion(logits, targets)
 
