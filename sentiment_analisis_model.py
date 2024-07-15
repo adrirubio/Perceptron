@@ -184,3 +184,25 @@ for inputs, masks, targets in train_loader:
   n_total += targets.shape[0]
 
 train_acc = n_correct / n_total
+
+n_correct = 0
+n_total = 0
+
+for inputs, masks, targets in test_loader:
+  inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
+
+  # Forward pass
+  outputs = model(inputs, attention_mask=masks)
+
+  # Extract the logits
+  logits = outputs.logits
+
+  # Get prediction
+  _, predictions = torch.max(logits, 1)
+
+  # Update counts
+  n_correct += (predictions == targets).sum().item()
+  n_total += targets.shape[0]
+
+test_acc = n_correct / n_total
+print(f"Train acc: {train_acc}, Test acc {test_acc}")
