@@ -23,7 +23,6 @@ for i in range(3):
     print(f"Input: {train_dataset[i]['sentence']}")
     print(f"Target: {train_dataset[i]['label']}")
 
-
 # Display some examples from the test set
 print("Testing Examples:")
 for i in range(3):
