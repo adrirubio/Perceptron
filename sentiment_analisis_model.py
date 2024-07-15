@@ -164,20 +164,22 @@ print(f"Model saved to {model_save_path}")
 
 # Accuracy
 model.eval()
-n_correct = 0.
-n_total = 0.
-for inputs, targets in train_loader_fixed:
-  # Move to GPU
-  inputs, targets = inputs.to(device), targets.to(device)
+n_correct = 0
+n_total = 0
+
+for inputs, masks, targets in train_loader:
+  inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
   # Forward pass
-  outputs = model(inputs)
+  outputs = model(inputs, attention_mask=masks)
 
-  # Get prediction
-  # torch.max returns both max and argmax
-  _, predictions = torch.max(outputs, 1)
+  # Extract the logits
+  logits = outputs.logits
 
-  # update counts
+  # Get predictions
+  _, predictions = torch.max(logits, 1)
+
+  # Update counts
   n_correct += (predictions == targets).sum().item()
   n_total += targets.shape[0]
 
