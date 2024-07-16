@@ -43,11 +43,11 @@ test_labels = test_dataset["label"]
 # Convert to PyTorch tensors
 train_input_ids = torch.tensor(train_encodings["input_ids"])
 train_attention_masks = torch.tensor(train_encodings["attention_mask"])
-train_labels = torch.tensor(train_labels)
+train_labels = torch.tensor(train_labels).long # Ensure the labels are in correct format
 
 test_input_ids = torch.tensor(test_encodings["input_ids"])
-test_attention_masks = torch.tensor(test_encodings["attention_mask"*)
-test_labels = torch.tensor(test_labels)
+test_attention_masks = torch.tensor(test_encodings["attention_mask"])
+test_labels = torch.tensor(test_labels).long() # Ensure the labels are in correct format
 
 # Create tensor datasets
 train_dataset = TensorDataset(train_input_ids, train_attention_masks, train_labels)
