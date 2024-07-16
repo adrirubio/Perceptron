@@ -216,3 +216,25 @@ for inputs, masks, targets in test_loader:
 
 test_acc = n_correct / n_total
 print(f"Train acc: {train_acc}, Test acc {test_acc}")
+
+# Function to predict the sentiment of new sentences
+def predict_sentences(model, tokenizer, sentences):
+    model.eval()
+    inputs = tokenizer(sentences, return_tensors="pt", padding=True, truncation=True, max_length=128)
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+    with torch.no_grad():
+        outputs = model(**inputs)
+        predictions = torch.argmax(outputs.logits, dim=-1)
+    return predictions
+
+# Test with a few random sentences
+example_sentences = [
+    "This movie was fantastic!",
+    "I hated every moment of this film.",
+    "It was an average experience, nothing special.",
+    "The plot was very predictable and boring."
+]
+
+predictions = predict_sentences(model, tokenizer, example_sentences)
+for sentence, prediction in zip(example_sentences, predictions):
+    print(f"Sentence: {sentence} => Prediction: {'Positive' if prediction.item() == 1 else 'Negative'}")
