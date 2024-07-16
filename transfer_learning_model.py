@@ -83,59 +83,59 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5, weight_decay=0.01)  # Adding weight decay
 
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
-  # Arrays to store the loss values for each epoch
-  train_losses = np.zeros(epochs)
-  test_losses = np.zeros(epochs)
+    # Arrays to store the loss values for each epoch
+    train_losses = np.zeros(epochs)
+    test_losses = np.zeros(epochs)
 
-  for it in range(epochs):
-    # Set datetime
-    t0 = datetime.now()
-    train_loss = []
-    model.train() # Set model to training mode
-    for inputs, targets in train_loader:
-      # Move data to GPU if available
-      inputs, targets = inputs.to(device), targets.to(device)
+    for it in range(epochs):
+        # Set datetime
+        t0 = datetime.now()
+        train_loss = []
+        model.train() # Set model to training mode
+        for inputs, targets in train_loader:
+            # Move data to GPU if available
+            inputs, targets = inputs.to(device), targets.to(device)
 
-      # Zero the parameter gradients
-      optimizer.zero_grad()
+            # Zero the parameter gradients
+            optimizer.zero_grad()
 
-      # Forward pass
-      outputs = model(inputs)
-      logits = outputs.logits  # Extract the logits
-      shift_logits = logits[..., :-1, :].contiguous()
-      shift_labels = targets[..., 1:].contiguous()
-      loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+            # Forward pass
+            outputs = model(inputs)
+            logits = outputs.logits  # Extract the logits
+            shift_logits = logits[..., :-1, :].contiguous()
+            shift_labels = targets[..., 1:].contiguous()
+            loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
 
-      # Backward and optimize
-      loss.backward()
-      optimizer.step()
+            # Backward and optimize
+            loss.backward()
+            optimizer.step()
 
-      train_loss.append(loss.item())
+            train_loss.append(loss.item())
 
-    # Get train loss and test loss
-    train_loss = np.mean(train_loss) # a little misleading
+        # Get train loss and test loss
+        train_loss = np.mean(train_loss) # a little misleading
 
-    test_loss = []
-    model.eval() # Set model to evaluation mode
-    for inputs, targets in test_loader:
-      inputs, targets = inputs.to(device), targets.to(device)
-      outputs = model(inputs)
-      logits = outputs.logits  # Extract the logits
-      shift_logits = logits[..., :-1, :].contiguous()
-      shift_labels = targets[..., 1:].contiguous()
-      loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
-      test_loss.append(loss.item())
-    test_loss = np.mean(test_loss)
+        test_loss = []
+        model.eval() # Set model to evaluation mode
+        for inputs, targets in test_loader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            outputs = model(inputs)
+            logits = outputs.logits  # Extract the logits
+            shift_logits = logits[..., :-1, :].contiguous()
+            shift_labels = targets[..., 1:].contiguous()
+            loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+            test_loss.append(loss.item())
+        test_loss = np.mean(test_loss)
 
-    # Save losses
-    train_losses[it] = train_loss
-    test_losses[it] = test_loss
+        # Save losses
+        train_losses[it] = train_loss
+        test_losses[it] = test_loss
 
-    dt = datetime.now() - t0
-    print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
-      Test Loss: {test_loss:.4f}, Duration: {dt}')
+        dt = datetime.now() - t0
+        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
+          Test Loss: {test_loss:.4f}, Duration: {dt}')
 
-  return train_losses, test_losses
+    return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
     model,
