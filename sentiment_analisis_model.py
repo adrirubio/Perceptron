@@ -91,62 +91,73 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
-  train_losses = np.zeros(epochs)
-  test_losses = np.zeros(epochs)
+    train_losses = np.zeros(epochs)
+    test_losses = np.zeros(epochs)
 
-  for it in range(epochs):
-    model.train() # Set model to training mode
-    t0 = datetime.now()
-    train_loss = []
-    for inputs, masks, targets in train_loader:
-      # move data to GPU
-      inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
+    for it in range(epochs):
+        model.train()  # Set model to training mode
+        t0 = datetime.now()
+        train_loss = []
 
-      # zero the parameter gradients
-      optimizer.zero_grad()
+        for inputs, masks, targets in train_loader:
+            # Move data to GPU
+            inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
-      # Forward pass
-      outputs = model(inputs, attention_mask=masks)
-      logits = outputs.logits  # Extract the logits
-      loss = criterion(logits, targets)
+            # Zero the parameter gradients
+            optimizer.zero_grad()
 
-      # Backward and optimize
-      loss.backward()
-      optimizer.step()
+            # Forward pass with error handling
+            try:
+                outputs = model(inputs, attention_mask=masks)
+                logits = outputs.logits  # Extract the logits
+                loss = criterion(logits, targets)
 
-      train_loss.append(loss.item())
+                # Backward and optimize
+                loss.backward()
+                optimizer.step()
 
-    # Get train loss and test loss
-    train_loss = np.mean(train_loss) # a little misleading
+                train_loss.append(loss.item())
+            except RuntimeError as e:
+                print(f"Error during training iteration: {e}")
+                continue
 
-    model.eval()
-    test_loss = []
-    for inputs, masks, targets in test_loader:
+        # Get train loss
+        train_loss = np.mean(train_loss)
 
-      # Move data to the GPU
-      inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
+        model.eval()
+        test_loss = []
 
-      # Forward pass
-      outputs = model(inputs, attention_mask=masks)
-      logits = outputs.logits  # Extract the logits
-      loss = criterion(logits, targets)
+        with torch.no_grad():
+            for inputs, masks, targets in test_loader:
+                # Move data to the GPU
+                inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
-      test_loss.append(loss.item())
+                # Forward pass with error handling
+                try:
+                    outputs = model(inputs, attention_mask=masks)
+                    logits = outputs.logits  # Extract the logits
+                    loss = criterion(logits, targets)
 
-    # Get test loss
-    test_loss = np.mean(test_loss)
+                    test_loss.append(loss.item())
+                except RuntimeError as e:
+                    print(f"Error during testing iteration: {e}")
+                    continue
 
-    # Save losses
-    train_losses[it] = train_loss
-    test_losses[it] = test_loss
+        # Get test loss
+        test_loss = np.mean(test_loss)
 
-    dt = datetime.now() - t0
+        # Save losses
+        train_losses[it] = train_loss
+        test_losses[it] = test_loss
 
-    print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
-      Test Loss: {test_loss:.4f}, Duration: {dt}')
+        dt = datetime.now() - t0
 
-  return train_losses, test_losses
+        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
+              f'Test Loss: {test_loss:.4f}, Duration: {dt}')
 
+    return train_losses, test_losses
+
+# Train the model
 train_losses, test_losses = batch_gd(
     model, criterion, optimizer, train_loader, test_loader, epochs=5)
 
@@ -167,20 +178,20 @@ n_correct = 0
 n_total = 0
 
 for inputs, masks, targets in train_loader:
-  inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
+    inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
-  # Forward pass
-  outputs = model(inputs, attention_mask=masks)
+    # Forward pass
+    outputs = model(inputs, attention_mask=masks)
 
-  # Extract the logits
-  logits = outputs.logits
+    # Extract the logits
+    logits = outputs.logits
 
-  # Get predictions
-  _, predictions = torch.max(logits, 1)
+    # Get predictions
+    _, predictions = torch.max(logits, 1)
 
-  # Update counts
-  n_correct += (predictions == targets).sum().item()
-  n_total += targets.shape[0]
+    # Update counts
+    n_correct += (predictions == targets).sum().item()
+    n_total += targets.shape[0]
 
 train_acc = n_correct / n_total
 
@@ -188,20 +199,20 @@ n_correct = 0
 n_total = 0
 
 for inputs, masks, targets in test_loader:
-  inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
+    inputs, masks, targets = inputs.to(device), masks.to(device), targets.to(device)
 
-  # Forward pass
-  outputs = model(inputs, attention_mask=masks)
+    # Forward pass
+    outputs = model(inputs, attention_mask=masks)
 
-  # Extract the logits
-  logits = outputs.logits
+    # Extract the logits
+    logits = outputs.logits
 
-  # Get prediction
-  _, predictions = torch.max(logits, 1)
+    # Get prediction
+    _, predictions = torch.max(logits, 1)
 
-  # Update counts
-  n_correct += (predictions == targets).sum().item()
-  n_total += targets.shape[0]
+    # Update counts
+    n_correct += (predictions == targets).sum().item()
+    n_total += targets.shape[0]
 
 test_acc = n_correct / n_total
 print(f"Train acc: {train_acc}, Test acc {test_acc}")
