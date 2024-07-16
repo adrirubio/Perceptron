@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import requests
 import io
+import os
+
+# Use CUDA_LAUNCH_BLOCKING for better error messages
+os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 
 # Load the SST-2 dataset
 dataset = load_dataset("glue", "sst2")
