@@ -64,9 +64,6 @@ def predict_sentence(model, tokenizer, sentence):
         prediction = torch.argmax(outputs.logits, dim=-1)
     return prediction.item()
 
-# Load GPT-2 tokenizer and model
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-model = GPT2LMHeadModel.from_pretrained('gpt2')
 wttr = Wttr("Vera")
 forecast = wttr.en()
 engine = pyttsx3.init()
@@ -74,13 +71,6 @@ mixer.init()
 recorder = sr.Recognizer()
 # Perform transformations on input image
 transformer_test = transforms.ToTensor()
-
-# Paths to the saved model and tokenizer
-model_save_path = "sentiment_analysis_model.pt"
-tokenizer_save_path = "sentiment_analysis_tokenizer"
-
-# Load the tokenizer
-tokenizer = BertTokenizer.from_pretrained(tokenizer_save_path)
 
 while True:
     try:
@@ -144,10 +134,12 @@ while True:
 
             # Predicts the class of an image
             elif "image" in text:
+                
                 # Load the trained model
                 model_save_path = "cnn_cifar100_model.pth"
                 model = CNN(K)  # Instantiate your CNN model
                 model.load_state_dict(torch.load(model_save_path))
+                
                 say("Please input your image path")
                 image_path = input("Input your image path: ")
                 predicted_class = predict_image(image_path, model, transformer_test)
@@ -155,6 +147,10 @@ while True:
                 say(f"The predicted class for the image is: {predicted_class}")
 
             else:
+                # Load GPT-2 tokenizer and model
+                tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+                model = GPT2LMHeadModel.from_pretrained('gpt2')
+                
                 # Load the trained model weights
                 model_save_path = "gpt2_dailydialog.pt"
                 model.load_state_dict(torch.load(model_save_path))
@@ -164,7 +160,14 @@ while True:
                 response = generate_response(text, model, tokenizer)
                 print("Response:", response)
 
-                # Load the model
+                # Paths to the saved model and tokenizer
+                model_save_path = "sentiment_analysis_model.pt"
+                tokenizer_save_path = "sentiment_analysis_tokenizer"
+
+                # Load the tokenizer
+                tokenizer = BertTokenizer.from_pretrained(tokenizer_save_path)
+
+                # Load the sentiment analisis model
                 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
                 model.load_state_dict(torch.load(model_save_path))
                 model.eval()
