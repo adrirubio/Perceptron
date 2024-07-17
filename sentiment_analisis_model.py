@@ -174,6 +174,11 @@ model_save_path = "sentiment_analisis_model.pth"
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
 
+# Save the tokenizer
+tokenizer_save_path = "sentiment_analysis_tokenizer"
+tokenizer.save_pretrained(tokenizer_save_path)
+print(f"Tokenizer saved to {tokenizer_save_path}")
+
 # Accuracy
 model.eval()
 n_correct = 0
