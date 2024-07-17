@@ -159,6 +159,7 @@ while True:
                 # Uses the trained model if it shouldn't be a manual response
                 response = generate_response(text, model, tokenizer)
                 print("Response:", response)
+                say(response)
 
                 # Paths to the saved model and tokenizer
                 model_save_path = "sentiment_analysis_model.pt"
