@@ -20,6 +20,12 @@ transformer_test = transforms.Compose([
   transforms.ToTensor(),
 ])
 
+# Create function to apply transformations
+def transform_example(example, transforms):
+  image = Image.open(example["image_path"]).convert("RGB")
+  example["image"] = transform(image)
+  return example
+
 # Load the COCO dataset
 dataset = load_dataset('coco', split={'train': 'train', 'test': 'test'})
 
