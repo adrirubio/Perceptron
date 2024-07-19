@@ -15,6 +15,11 @@ transformer_train = transforms.Compose([
   transforms.ToTensor(),
 ])
 
+transformer_test = transforms.Compose([
+  transforms.Resize((32, 32)),
+  transforms.ToTensor(),
+])
+
 # Load the COCO dataset
 dataset = load_dataset('coco', split={'train': 'train', 'test': 'test'})
 
