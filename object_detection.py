@@ -43,3 +43,13 @@ print(train_dataset[0])
 
 # Print the first example from the testing dataset
 print(test_dataset[0])
+
+# Create data loader
+batch_size = 32
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+                                          batch_size=batch_size,
+                                          shuffle=True)
+
+test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
+                                         batch_size=batch_size,
+                                         suffle=False)
