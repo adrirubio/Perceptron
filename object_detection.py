@@ -52,7 +52,6 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
 
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                          batch_size=batch_size,
-                                         suffle=False)
 
 # Display some examples from the DataLoader
 print("Training Batch Example:")
