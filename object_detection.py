@@ -34,6 +34,10 @@ dataset = load_dataset('coco', split={'train': 'train', 'test': 'test'})
 train_dataset = dataset['train'].map(lambda x: transform(x, transformer_train), batched=False)
 test_dataset = dataset['test'].map(lambda x: transform(x, transformer_test), batched=False)
 
+# Set the train and test sets format to PyTorch tensors
+train_dataset.set_format(type="torch", columns=["image", "anotations"])
+test_dataset.set_format(type="torch", columns=["image", "anotations"])
+
 # Print the first example from the training dataset
 print(train_dataset[0])
 
