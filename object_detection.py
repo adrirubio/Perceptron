@@ -22,7 +22,7 @@ transformer_test = transforms.Compose([
 ])
 
 # Create function to apply transformations
-def transform(example, transform):
+def apply_transform(example, transform):
   image = Image.open(example["image_path"]).convert("RGB")
   example["image"] = transform(image)
   return example
@@ -31,8 +31,8 @@ def transform(example, transform):
 dataset = load_dataset('coco', split={'train': 'train', 'test': 'test'})
 
 # Access the train and test splits and apply transformations
-train_dataset = dataset['train'].map(lambda x: transform(x, transformer_train), batched=False)
-test_dataset = dataset['test'].map(lambda x: transform(x, transformer_test), batched=False)
+train_dataset = dataset['train'].map(lambda x: apply_transform(x, transformer_train), batched=False)
+test_dataset = dataset['test'].map(lambda x: apply_transform(x, transformer_test), batched=False)
 
 # Set the train and test sets format to PyTorch tensors
 train_dataset.set_format(type="torch", columns=["image", "annotations"])
@@ -52,6 +52,7 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
 
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                          batch_size=batch_size,
+                                         shuffle=False)
 
 # Display some examples from the DataLoader
 print("Training Batch Example:")
