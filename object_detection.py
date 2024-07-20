@@ -31,8 +31,8 @@ def transform(example, transforms):
 dataset = load_dataset('coco', split={'train': 'train', 'test': 'test'})
 
 # Access the train and test splits and apply transformations
-train_dataset = dataset['train'].map(lambda x: transform(x, transformer_train))
-test_dataset = dataset['test'].map(lambda x: transform(x, transformer_test))
+train_dataset = dataset['train'].map(lambda x: transform(x, transformer_train), batched=False)
+test_dataset = dataset['test'].map(lambda x: transform(x, transformer_test), batched=False)
 
 # Print the first example from the training dataset
 print(train_dataset[0])
