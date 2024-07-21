@@ -139,7 +139,8 @@ model = CNN(num_classes)
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 model.to(device)
 
-  
-                
-              
-      
+# Define the losses and optimizer
+criterion = CrossEntropyLoss()
+criterion_bbox = nn.MNSLoss()
+optimizer = torch.optim.Adam(model.paramaters(), lr=0.001)
+
