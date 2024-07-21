@@ -64,3 +64,70 @@ print("\nTesting Batch Example:")
 for batch in test_loader:
   print(batch)
   break
+
+# Define a simple CNN for object detection
+class CNN(nn.Module):
+    def __init__(self, num_classes):
+        super(CNN, self).__init__()
+
+        # Define the convolutional layers
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(32),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(32),
+            nn.MaxPool2d(2),
+        )
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(64),
+            nn.MaxPool2d(2),
+        )
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(128),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(128),
+            nn.MaxPool2d(2),
+        )
+
+        # Define the dense (fully connected) layers for classification
+        self.fc1 = nn.Linear(128 * 4 * 4, 1024)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout()
+        self.fc2 = nn.Linear(1024, num_classes)
+
+        # Define the dense (fully connected) layers for bounding box regression
+        self.fc3 = nn.Linear(128 * 4 * 4, 1024)
+        self.fc4 = nn.Linear(1024, 4)  # 4 coordinates for bounding box
+
+    def forward(self, x):
+        # Forward pass through the convolutional layers
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+
+        # Flatten the output for the dense layers
+        x_flat = x.view(x.size(0), -1)
+
+        # Forward pass through the dense layers for classification
+        x_class = self.dropout(x_flat)
+        x_class = self.relu(self.fc1(x_class))
+        x_class = self.dropout(x_class)
+        class_logits = self.fc2(x_class)
+
+        # Forward pass through the dense layers for bounding box regression
+        x_bbox = self.dropout(x_flat)
+        x_bbox = self.relu(self.fc3(x_bbox))
+        x_bbox = self.dropout(x_bbox)
+        bbox_coordinates = self.fc4(x_bbox)
+
+        return class_logits, bbox_coordinates
