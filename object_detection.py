@@ -131,3 +131,13 @@ class CNN(nn.Module):
         bbox_coordinates = self.fc4(x_bbox)
 
         return class_logits, bbox_coordinates
+
+# Instanciate the model
+num_classes = 91 # 80 classes + 1 background for COCO
+model = CNN(num_classes)
+
+
+  
+                
+              
+      
