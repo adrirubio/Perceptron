@@ -136,6 +136,8 @@ class CNN(nn.Module):
 num_classes = 91 # 80 classes + 1 background for COCO
 model = CNN(num_classes)
 
+device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+model.to(device)
 
   
                 
