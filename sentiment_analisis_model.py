@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from datasets import load_dataset
-from transformers import BertTokenizer
+from transformers import BertTokenizer, BertForSequenceClassification
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 import pandas as pd
