@@ -144,3 +144,37 @@ criterion = CrossEntropyLoss()
 criterion_bbox = nn.MNSLoss()
 optimizer = torch.optim.Adam(model.paramaters(), lr=0.001)
 
+# Training loop
+def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, test_loader, epochs):
+    train_losses = np.zeros(epochs)
+    test_losses = np.zeros(epochs)
+
+    for it in range(epochs):
+        model.train()  # Set model to training mode
+        t0 = datetime.now()
+        train_loss = []
+
+        for inputs, targets in train_loader:
+            # Move data to GPU
+            inputs = inputs.to(device)
+            labels = targets["annotations"].to(device)
+            bbox_targets = targets["bbox"].to(device)
+
+            # Zero the parameter gradients
+            optimizer.zero_grad()
+
+            # Forward pass
+            class_logits, bbox_preds = model(inputs)
+            loss_class = criterion_class(class_logits, labels)
+            loss_bbox = criterion_bbox(bbox_preds, bbox_targets)
+            loss = loss_class + loss_bbox
+
+            # Backward and optimize
+            loss.backward()
+            optimizer.step()
+
+            train_loss.append(loss.item())
+
+        # Get train loss
+        train_loss = np.mean(train_loss)
+        train_losses[it] = train_loss
