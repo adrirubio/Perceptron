@@ -140,7 +140,7 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 model.to(device)
 
 # Define the losses and optimizer
-criterion = CrossEntropyLoss()
+criterion_class = CrossEntropyLoss()
 criterion_bbox = nn.MNSLoss()
 optimizer = torch.optim.Adam(model.paramaters(), lr=0.001)
 
@@ -178,3 +178,35 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
         # Get train loss
         train_loss = np.mean(train_loss)
         train_losses[it] = train_loss
+
+        model.eval() # Set model to evaluation mode
+        test_loss[]
+        with torch.no_grad():
+          for inputs, targets in test_loader:
+            # Move data to the GPU
+            inputs = inputs.to(device)
+            labels = targets["annotations"].to(device)
+            bbox_targets = targets["bbox"].to(device)
+
+            # Forward pass
+            class_logits, bbox_preds = model(inputs)
+            loss_class = criterion_class(class_logits, labels)
+            loss_bbox = criterion_bbox(bbox_preds, bbox_targets)
+            loss = loss_class + loss_bbox
+
+            test_loss.append(loss.item())
+
+          # Get test loss
+          test_loss = np.mean(test_loss)
+          test_losses[it] = test_loss
+
+          dt = datetime.now()
+
+          print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Duration: {dt}')
+
+        return train_losses, test_losses
+
+# Train the model
+train_losses, test_losses = batch_gd(
+    model, criterion, optimizer, train_loader, test_loader, epochs=15)
+          
