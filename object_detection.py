@@ -208,5 +208,5 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
 
 # Train the model
 train_losses, test_losses = batch_gd(
-    model, criterion, optimizer, train_loader, test_loader, epochs=15)
+    model, criterion_class, criterion_bbox, optimizer, train_loader, test_loader, epochs=15)
           
