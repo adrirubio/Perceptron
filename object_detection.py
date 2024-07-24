@@ -144,7 +144,7 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 model.to(device)
 
 # Define the losses and optimizer
-criterion_class = CrossEntropyLoss()
+criterion_class = nn.CrossEntropyLoss()
 criterion_bbox = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
