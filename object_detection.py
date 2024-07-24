@@ -216,3 +216,8 @@ plt.plot(train_losses, label="Train loss")
 plt.plot(test_losses, label="Test loss")
 plt.legend()
 plt.show()
+
+# Save model
+model_save_path = "object_detection_model.pth"
+torch.save(model.state_dict(), model_save_path)
+print(f"Model saved to {model_save_path}")
