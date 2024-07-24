@@ -27,7 +27,6 @@ train_image_dir = 'path_to_train_images'
 test_annotation_file = 'path_to_test_annotations.json'
 test_image_dir = 'path_to_test_images'
 
-# Load datasets
 train_dataset = torchvision.datasets.CocoDetection(
     root=train_image_dir,
     annFile=train_annotation_file,
@@ -35,8 +34,8 @@ train_dataset = torchvision.datasets.CocoDetection(
 )
 
 test_dataset = torchvision.datasets.CocoDetection(
-    root=test_image_dir,
-    annFile=test_annotation_file,
+    root=val_image_dir,
+    annFile=val_annotation_file,
     transform=transformer_test
 )
 
