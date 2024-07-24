@@ -210,3 +210,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
 train_losses, test_losses = batch_gd(
     model, criterion_class, criterion_bbox, optimizer, train_loader, test_loader, epochs=15)
           
+plt.plot(train_losses, label="Train loss")
+plt.plot(test_losses, label="Test loss")
+plt.legend()
+plt.show()
