@@ -63,7 +63,7 @@ for inputs, targets in train_loader:
   break
 
 print("\n Testing Batch Example:")
-for inputs, targets in train_loader:
+for inputs, targets in test_loader:
   print(inputs.shape)
   print(targets)
   break
@@ -189,7 +189,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
         train_losses[it] = train_loss
 
         model.eval() # Set model to evaluation mode
-        test_loss[]
+        test_loss = []
         with torch.no_grad():
           for inputs, targets in test_loader:
             # Move data to GPU
