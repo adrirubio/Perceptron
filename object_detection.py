@@ -161,8 +161,14 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
         for inputs, targets in train_loader:
             # Move data to GPU
             inputs = inputs.to(device)
-            labels = targets["annotations"].to(device)
-            bbox_targets = targets["bbox"].to(device)
+            
+            # Extract annotations
+            labels = [ann['category_id'] for ann in targets]  # Get category ids
+            bbox_targets = [ann['bbox'] for ann in targets]  # Get bounding boxes
+            
+            # Convert to tensor
+            labels = torch.tensor(labels, dtype=torch.long).to(device)
+            bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
 
             # Zero the parameter gradients
             optimizer.zero_grad()
@@ -187,10 +193,16 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
         test_loss[]
         with torch.no_grad():
           for inputs, targets in test_loader:
-            # Move data to the GPU
+            # Move data to GPU
             inputs = inputs.to(device)
-            labels = targets["annotations"].to(device)
-            bbox_targets = targets["bbox"].to(device)
+            
+            # Extract annotations
+            labels = [ann['category_id'] for ann in targets]  # Get category ids
+            bbox_targets = [ann['bbox'] for ann in targets]  # Get bounding boxes
+            
+            # Convert to tensor
+            labels = torch.tensor(labels, dtype=torch.long).to(device)
+            bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
 
             # Forward pass
             class_logits, bbox_preds = model(inputs)
