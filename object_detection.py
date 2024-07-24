@@ -48,23 +48,25 @@ print(test_dataset[0])
 
 # Create data loader
 batch_size = 32
-train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
+train_loader = DataLoader(dataset=train_dataset,
                                           batch_size=batch_size,
                                           shuffle=True)
 
-test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
+test_loader = DataLoader(dataset=test_dataset,
                                          batch_size=batch_size,
                                          shuffle=False)
 
 # Display some examples from the DataLoader
 print("Training Batch Example:")
-for batch in train_loader:
-  print(batch)
+for inputs, targets in train_loader:
+  print(inputs.shape)
+  print(targets)
   break
 
-print("\nTesting Batch Example:")
-for batch in test_loader:
-  print(batch)
+print("\n Testing Batch Example:")
+for inputs, targets in train_loader:
+  print(inputs.shape)
+  print(targets)
   break
 
 # Define a simple CNN for object detection
@@ -143,8 +145,8 @@ model.to(device)
 
 # Define the losses and optimizer
 criterion_class = CrossEntropyLoss()
-criterion_bbox = nn.MNSLoss()
-optimizer = torch.optim.Adam(model.paramaters(), lr=0.001)
+criterion_bbox = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
 def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, test_loader, epochs):
