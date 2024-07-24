@@ -49,12 +49,12 @@ print(test_dataset[0])
 # Create data loader
 batch_size = 32
 train_loader = DataLoader(dataset=train_dataset,
-                                          batch_size=batch_size,
-                                          shuffle=True)
+                          batch_size=batch_size,
+                          shuffle=True)
 
 test_loader = DataLoader(dataset=test_dataset,
-                                         batch_size=batch_size,
-                                         shuffle=False)
+                         batch_size=batch_size,
+                         shuffle=False)
 
 # Display some examples from the DataLoader
 print("Training Batch Example:")
