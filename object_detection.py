@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
-from datasets import load_dataset
+from torch.utils.data import DataLoader
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,22 +21,24 @@ transformer_test = transforms.Compose([
   transforms.ToTensor(),
 ])
 
-# Create function to apply transformations
-def apply_transform(example, transform):
-  image = Image.open(example["image_path"]).convert("RGB")
-  example["image"] = transform(image)
-  return example
+# Define paths to the annotation files and images
+train_annotation_file = 'path_to_train_annotations.json'
+train_image_dir = 'path_to_train_images'
+test_annotation_file = 'path_to_test_annotations.json'
+test_image_dir = 'path_to_test_images'
 
-# Load the COCO dataset
-dataset = load_dataset('coco', split={'train': 'train', 'test': 'test'})
+# Load datasets
+train_dataset = torchvision.datasets.CocoDetection(
+    root=train_image_dir,
+    annFile=train_annotation_file,
+    transform=transformer_train
+)
 
-# Access the train and test splits and apply transformations
-train_dataset = dataset['train'].map(lambda x: apply_transform(x, transformer_train), batched=False)
-test_dataset = dataset['test'].map(lambda x: apply_transform(x, transformer_test), batched=False)
-
-# Set the train and test sets format to PyTorch tensors
-train_dataset.set_format(type="torch", columns=["image", "annotations"])
-test_dataset.set_format(type="torch", columns=["image", "annotations"])
+test_dataset = torchvision.datasets.CocoDetection(
+    root=test_image_dir,
+    annFile=test_annotation_file,
+    transform=transformer_test
+)
 
 # Print the first example from the training dataset
 print(train_dataset[0])
