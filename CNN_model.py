@@ -202,7 +202,7 @@ print(f"Model saved to {model_save_path}")
 # Accuracy
 model.eval()
 n_correct = 0.
-n_total = 0.
+n_total = 0
 for inputs, targets in train_loader_fixed:
     # Move to GPU
     inputs, targets = inputs.to(device), targets.to(device)
