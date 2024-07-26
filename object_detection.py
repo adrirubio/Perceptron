@@ -25,8 +25,8 @@ transformer_test = transforms.Compose([
 # Define paths to the annotation files and images
 train_annotation_file = 'path_to_train_annotations.json'
 train_image_dir = 'path_to_train_images'
-test_annotation_file = 'path_to_test_annotations.json'
-test_image_dir = 'path_to_test_images'
+val_annotation_file = 'path_to_test_annotations.json'
+val_image_dir = 'path_to_test_images'
 
 train_dataset = torchvision.datasets.CocoDetection(
     root=train_image_dir,
