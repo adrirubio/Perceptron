@@ -142,6 +142,7 @@ model = CNN(num_classes)
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 model.to(device)
+print(device)
 
 # Define the losses and optimizer
 criterion_class = nn.CrossEntropyLoss()
