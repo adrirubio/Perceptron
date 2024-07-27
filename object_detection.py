@@ -22,11 +22,11 @@ transformer_test = transforms.Compose([
   transforms.ToTensor(),
 ])
 
-# Define paths to the annotation files and images
-train_annotation_file = 'path_to_train_annotations.json'
-train_image_dir = 'path_to_train_images'
-val_annotation_file = 'path_to_test_annotations.json'
-val_image_dir = 'path_to_test_images'
+# Define paths to the image and annotation files
+train_image_dir = 'coco/train2017'
+val_image_dir = 'coco/val2017'
+train_annotation_file = 'coco/annotations/instances_train2017.json'
+val_annotation_file = 'coco/annotations/instances_val2017.json'
 
 train_dataset = torchvision.datasets.CocoDetection(
     root=train_image_dir,
