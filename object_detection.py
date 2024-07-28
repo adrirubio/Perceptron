@@ -261,4 +261,3 @@ for inputs, targets in train_loader:
             n_total += targets.shape[0]
 
 train_acc = n_correct / n_total
-            
