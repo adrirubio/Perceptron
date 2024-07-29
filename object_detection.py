@@ -61,11 +61,13 @@ def collate_fn(batch):
 batch_size = 32
 train_loader = DataLoader(dataset=train_dataset,
                           batch_size=batch_size,
-                          shuffle=True)
+                          shuffle=True,
+                          collate_fn=collate_fn)
 
 test_loader = DataLoader(dataset=test_dataset,
                          batch_size=batch_size,
-                         shuffle=False)
+                         shuffle=False,
+                         collate_fn=collate_fn)
 
 # Display some examples from the DataLoader
 print("Training Batch Example:")
