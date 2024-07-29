@@ -45,6 +45,18 @@ print(train_dataset[0])
 # Print the first example from the testing dataset
 print(test_dataset[0])
 
+# Custom collate function to handle variable-size targets and images with no annotations
+def collate_fn(batch):
+  images = []
+  targets = []
+  for img, targets in batch:
+    if len(target) > 0:
+      images.append(img)
+      targets.append(targe)
+  if len(images) == 0:
+    return torch.empty(0), torch.empty(0)
+  return torch.stack(images, 0), targets
+
 # Create data loader
 batch_size = 32
 train_loader = DataLoader(dataset=train_dataset,
