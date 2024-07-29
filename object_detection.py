@@ -171,28 +171,34 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
         train_loss = []
 
         for inputs, targets in train_loader:
-            # Move data to GPU
-            inputs = inputs.to(device)
+          if inputs.size(0) == 0:
+            continue
+          # Move data to GPU
+          inputs = inputs.to(device)
             
-            # Extract annotations
-            labels = [ann['category_id'] for ann in targets]  # Get category ids
-            bbox_targets = [ann['bbox'] for ann in targets]  # Get bounding boxes
+          # Extract annotations
+          labels = []
+          bbox_targets = []
+          for target in targets:
+            if len(target) > 0:
+              labels.append(target[0]['category_id'])  # Get category ids
+              bbox_targets.append(target[0]['bbox'])  # Get bounding boxes
             
-            # Convert to tensor
-            labels = torch.tensor(labels, dtype=torch.long).to(device)
-            bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
+          # Convert to tensor
+          labels = torch.tensor(labels, dtype=torch.long).to(device)
+          bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
 
-            # Forward pass
-            class_logits, bbox_preds = model(inputs)
-            loss_class = criterion_class(class_logits, labels)
-            loss_bbox = criterion_bbox(bbox_preds, bbox_targets)
-            loss = loss_class + loss_bbox
+          # Forward pass
+          class_logits, bbox_preds = model(inputs)
+          loss_class = criterion_class(class_logits, labels)
+          loss_bbox = criterion_bbox(bbox_preds, bbox_targets)
+          loss = loss_class + loss_bbox
 
-            # Backward and optimize
-            loss.backward()
-            optimizer.step()
+          # Backward and optimize
+          loss.backward()
+          optimizer.step()
 
-            train_loss.append(loss.item())
+          train_loss.append(loss.item())
 
         # Get train loss
         train_loss = np.mean(train_loss)
@@ -202,12 +208,19 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
         test_loss = []
         with torch.no_grad():
           for inputs, targets in test_loader:
-            # Move data to GPU
-            inputs = inputs.to(device)
-            
+            if inputs.size(0) == 0:
+              continue
+
+            # Move data to the GPU
+            inputs.to(tensor)
+
             # Extract annotations
-            labels = [ann['category_id'] for ann in targets]  # Get category ids
-            bbox_targets = [ann['bbox'] for ann in targets]  # Get bounding boxes
+            labels = []
+            bbox_targets = []
+            for target in targets:
+              if len(target) > 0:
+                labels.append(target[0]['category_id'])  # Get category ids
+                bbox_targets.append(target[0]['bbox'])  # Get bounding boxes
             
             # Convert to tensor
             labels = torch.tensor(labels, dtype=torch.long).to(device)
