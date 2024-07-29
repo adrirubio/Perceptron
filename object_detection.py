@@ -262,8 +262,19 @@ print(f"Model saved to {model_save_path}")
 n_correct = 0
 n_total = 0
 for inputs, targets in train_loader:
+  if inputs.size(0) == 0:
+    continue
+  
   # Move data to GPU
   inputs = inputs.to(device)
+
+  # Extract annotations
+  labels = []
+  bbox_targets = []
+  for target in targets:
+    if len(target) > 0:
+      labels.append(target[0]['category_id'])  # Get category ids
+      bbox_targets.append(target[0]['bbox'])  # Get bounding boxes
             
   # Extract annotations
   labels = [ann['category_id'] for ann in targets]  # Get category ids
