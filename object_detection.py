@@ -160,7 +160,7 @@ criterion_class = nn.CrossEntropyLoss()
 criterion_bbox = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-# Training loop
+# Training loop  a bit modified
 def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, test_loader, epochs):
     train_losses = np.zeros(epochs)
     test_losses = np.zeros(epochs)
