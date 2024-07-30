@@ -49,7 +49,7 @@ print(test_dataset[0])
 def collate_fn(batch):
   images = []
   targets = []
-  for img, targets in batch:
+  for img, target in batch:
     if len(target) > 0:
       images.append(img)
       targets.append(target)
