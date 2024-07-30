@@ -245,7 +245,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
 
           print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Duration: {dt}')
 
-      return train_losses, test_losses
+    return train_losses, test_losses
 
 # Train the model
 train_losses, test_losses = batch_gd(
