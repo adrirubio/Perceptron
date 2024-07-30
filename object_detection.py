@@ -327,3 +327,4 @@ for inputs, targets in test_loader:
   n_total += labels.size(0)
   
 test_acc = n_correct / n_total
+print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
