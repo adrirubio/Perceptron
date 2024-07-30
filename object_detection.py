@@ -290,6 +290,39 @@ for inputs, targets in train_loader:
 
   # Update counts
   n_correct += (predictions == labels).sum().item()
-  n_total += labels.size(0)
+  n_total += labels.shape[0]
+  
+train_acc = n_correct / n_total
+
+n_correct = 0
+n_total = 0
+for inputs, targets in test_loader:
+  if inputs.size(0) == 0:
+    continue
+
+  # Move data to the GPU
+  inputs.to(device)
+
+  # Extract annotations
+  labels = []
+  for target in targets:
+    if len(target) > 0:
+      labels.append(target[0]['category_id'])  # Get category ids
+
+  # Convert to tensor
+  if len(labels) == 0:
+    continue  # Skip if no labels are present
+  # Convert to tensor
+  labels = torch.tensor(labels, dtype=torch.long).to(device)
+
+  # Forward pass
+  class_logits, _ = model(inputs)
+
+  # Get predictions
+  _, predictions = torch.max(class_logits, 1)
+
+  # Update counts
+  n_correct += (predictions == labels).sum().item()
+  n_total += labels.shape[0]
   
 train_acc = n_correct / n_total
