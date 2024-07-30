@@ -52,7 +52,7 @@ def collate_fn(batch):
   for img, targets in batch:
     if len(target) > 0:
       images.append(img)
-      targets.append(targe)
+      targets.append(target)
   if len(images) == 0:
     return torch.empty(0), torch.empty(0)
   return torch.stack(images, 0), targets
@@ -197,6 +197,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
           loss = loss_class + loss_bbox
 
           # Backward and optimize
+          optimizer.zero_grad()  # Fixed: Added optimizer.zero_grad()
           loss.backward()
           optimizer.step()
 
