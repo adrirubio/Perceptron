@@ -291,7 +291,7 @@ for inputs, targets in train_loader:
 
   # Update counts
   n_correct += (predictions == labels).sum().item()
-  n_total += labels.shape[0]
+  n_total += labels.size(0)
   
 train_acc = n_correct / n_total
 
@@ -302,7 +302,7 @@ for inputs, targets in test_loader:
     continue
 
   # Move data to the GPU
-  inputs.to(device)
+  inputs = inputs.to(device)
 
   # Extract annotations
   labels = []
@@ -324,6 +324,6 @@ for inputs, targets in test_loader:
 
   # Update counts
   n_correct += (predictions == labels).sum().item()
-  n_total += labels.shape[0]
+  n_total += labels.size(0)
   
 train_acc = n_correct / n_total
