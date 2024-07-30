@@ -215,7 +215,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
               continue
 
             # Move data to the GPU
-            inputs.to(device)
+            inputs = .to(device)
 
             # Extract annotations
             labels = []
