@@ -326,4 +326,4 @@ for inputs, targets in test_loader:
   n_correct += (predictions == labels).sum().item()
   n_total += labels.size(0)
   
-train_acc = n_correct / n_total
+test_acc = n_correct / n_total
