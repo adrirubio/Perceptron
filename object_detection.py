@@ -272,29 +272,24 @@ for inputs, targets in train_loader:
 
   # Extract annotations
   labels = []
-  bbox_targets = []
   for target in targets:
     if len(target) > 0:
       labels.append(target[0]['category_id'])  # Get category ids
-      bbox_targets.append(target[0]['bbox'])  # Get bounding boxes
-            
-  # Extract annotations
-  labels = [ann['category_id'] for ann in targets]  # Get category ids
-  bbox_targets = [ann['bbox'] for ann in targets]  # Get bounding boxes
-            
+
+  # Convert to tensor
+  if len(labels) == 0:
+    continue  # Skip if no labels are present
   # Convert to tensor
   labels = torch.tensor(labels, dtype=torch.long).to(device)
-  bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
 
   # Forward pass
-  class_logits, bbox_preds = model(inputs)
-  loss_bbox = criterion_bbox(bbox_preds, bbox_targets)
+  class_logits, _ = model(inputs)
 
   # Get predictions
-  _, predictions = torch.max(loss_bbox, 1)
+  _, predictions = torch.max(class_logits, 1)
 
   # Update counts
-  n_correct += (predictions == targets).sum().item()
-  n_total += targets.shape[0]
+  n_correct += (predictions == labels).sum().item()
+  n_total += labels.size(0)
   
 train_acc = n_correct / n_total
