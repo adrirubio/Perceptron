@@ -357,7 +357,7 @@ def infer_and_display(image_path, model, transform, device):
   # Display image
   plt.imshow(image)
   plt.axis("off")
-  plt.show
+  plt.show()
 
 # Example usage
 image_path = 'path/to/your/image.jpg'  # Replace with the path to your image
