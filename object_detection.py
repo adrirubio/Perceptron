@@ -330,3 +330,35 @@ for inputs, targets in test_loader:
 test_acc = n_correct / n_total
 print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
 
+def infer_and_display(image_path, model, transform, device):
+  # Load the image
+  image = image.open(image_path).convert("RGB")
+  
+  # Apply transformations
+  image_tensor = transform(image).unsqueeze(0).to(device)
+
+  # Perform inference
+  with torch.no_grad():
+    , bbox_preds = model(image_tensor)
+    bbox_preds = bbox_preds.cpu().squeeze().tolist()
+
+  # Ensure bbox_preds has the correct format
+  if len(bbox_preds) != 4:
+    print("Error: Bounding box predictions are not in correct format.")
+    return
+  
+  # Convert bbox from [xmin, ymin, width, height] to [xmin, ymin, xmax, ymax]
+  bbox = [bbox_preds[0], bbox_preds[1], bbox_preds[0] + bbox_preds[2], bbox_preds[1] + bbox_preds[3]]
+
+  # Draw bounding box on the image
+  draw = ImageDraw.Draw(image)
+  draw.rectangle(bbox, outline="red", width=3)
+
+  # Display image
+  plt.imshow(image)
+  plt.axis("off")
+  plt.show
+
+# Example usage
+image_path = 'path/to/your/image.jpg'  # Replace with the path to your image
+infer_and_display(image_path, model, transformer_test, device)
