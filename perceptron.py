@@ -134,11 +134,11 @@ while True:
 
             # Predicts the class of an image
             elif "image" in text:
-                
                 # Load the trained model
                 model_save_path = "cnn_cifar100_model.pth"
                 model = CNN(K)  # Instantiate your CNN model
                 model.load_state_dict(torch.load(model_save_path))
+                model.eval()
                 
                 say("Please input your image path")
                 image_path = input("Input your image path: ")
@@ -168,15 +168,16 @@ while True:
                 # Load the tokenizer
                 tokenizer = BertTokenizer.from_pretrained(tokenizer_save_path)
 
-                # Load the sentiment analisis model
-                model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
+                # Load the sentiment analisis mode"
+                model = BertForSequenceClassification.from_pretrained("bert-base-uncased·, num_labels=2)
                 model.load_state_dict(torch.load(model_save_path))
                 model.eval()
 
                 # Also tells you how you are feeling
                 prediction = predict_sentence(model, tokenizer, text)
-                print(f"Sentence: {text} => Prediction: {'Positive' if prediction == 1 else 'Negative'}")
-
+                print(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
+                say(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
+                
     except sr.UnknownValueError:
         print("UnknownValueError")
         pass
