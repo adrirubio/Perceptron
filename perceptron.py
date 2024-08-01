@@ -163,7 +163,7 @@ while True:
 
             # Predicts the class of an image
             elif "image" in text:
-                # Load the trained model
+                # Load the CNN trained model
                 model_save_path = "cnn_cifar100_model.pth"
                 model = CNN(K)  # Instantiate your CNN model
                 model.load_state_dict(torch.load(model_save_path))
