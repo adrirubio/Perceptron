@@ -332,14 +332,14 @@ print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
 
 def infer_and_display(image_path, model, transform, device):
   # Load the image
-  image = image.open(image_path).convert("RGB")
+  image = Image.open(image_path).convert("RGB")
   
   # Apply transformations
   image_tensor = transform(image).unsqueeze(0).to(device)
 
   # Perform inference
   with torch.no_grad():
-    , bbox_preds = model(image_tensor)
+    _, bbox_preds = model(image_tensor)
     bbox_preds = bbox_preds.cpu().squeeze().tolist()
 
   # Ensure bbox_preds has the correct format
