@@ -360,5 +360,5 @@ def infer_and_display(image_path, model, transform, device):
   plt.show()
 
 # Example usage
-image_path = 'path/to/your/image.jpg'  # Replace with the path to your image
+image_path = "path/to/your/image.jpg"  # Replace with the path to your image
 infer_and_display(image_path, model, transformer_test, device)
