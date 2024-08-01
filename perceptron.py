@@ -3,7 +3,7 @@ import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torchvision.transforms as transforms
 from transformers import BertTokenizer, BertForSequenceClassification
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import speech_recognition as sr
 import pyaudio
 import pywhatkit
