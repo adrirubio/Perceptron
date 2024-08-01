@@ -153,6 +153,60 @@ class Object_Detection(nn.Module):
 
         return class_logits, bbox_coordinates
 
+class CNN(nn.Module):
+    def __init__(self, K):
+        super(CNN, self).__init__()
+
+        # Define the convolutional layers
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(32),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(32),
+            nn.MaxPool2d(2),
+        )
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(64),
+            nn.MaxPool2d(2),
+        )
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(128),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(128),
+            nn.MaxPool2d(2),
+        )
+
+        # Define the dense (fully connected) layers
+        self.fc1 = nn.Linear(128 * 4 * 4, 1024)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout()
+        self.fc2 = nn.Linear(1024, K)
+
+    def forward(self, x):
+        # Forward pass through the convolutional layers
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+
+        # Flatten the output for the dense layers
+        x = x.view(x.size(0), -1)
+
+        # Forward pass through the dense layers
+        x = self.dropout(x)
+        x = self.relu(self.fc1(x))
+        x = self.dropout(x)
+        x = self.fc2(x)
+
 wttr = Wttr("Vera")
 forecast = wttr.en()
 engine = pyttsx3.init()
@@ -225,6 +279,8 @@ while True:
             elif "image" in text:
                 # Load the CNN trained model
                 model_save_path = "cnn_cifar100_model.pth"
+
+                K = 100 # Num classes
                 model = CNN(K)  # Instantiate your CNN model
                 model.load_state_dict(torch.load(model_save_path))
                 model.eval()
