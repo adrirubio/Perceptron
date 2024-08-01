@@ -64,6 +64,7 @@ def predict_sentence(model, tokenizer, sentence):
         prediction = torch.argmax(outputs.logits, dim=-1)
     return prediction.item()
 
+# Function to predict the objects in an image
 def infer_and_display(image_path, model, transform):
     # Load the image
     image = Image.open(image_path).comavert("RGB")
@@ -207,6 +208,38 @@ class CNN(nn.Module):
         x = self.dropout(x)
         x = self.fc2(x)
 
+# Initialize models and devices
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Load GPT-2 tokenizer and model
+gpt2_tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+gpt2_model = GPT2LMHeadModel.from_pretrained('gpt2')
+gpt2_model_path = "gpt2_dailydialog.pt"
+gpt2_model.load_state_dict(torch.load(gpt2_model_path))
+gpt2_model.to(device).eval()
+
+# Load CNN model
+cnn_model_path = "cnn_cifar100_model.pth"
+cnn_classes = 100
+cnn_model = CNN(cnn_classes)
+cnn_model.load_state_dict(torch.load(cnn_model_path))
+cnn_model.to(device).eval()
+
+# Load Object Detection model
+object_detection_model_path = "object_detection_model.pth"
+num_classes = 91
+object_detection_model = ObjectDetection(num_classes)
+object_detection_model.load_state_dict(torch.load(object_detection_model_path))
+object_detection_model.to(device).eval()
+
+# Load BERT tokenizer and model
+bert_tokenizer_path = "sentiment_analysis_tokenizer"
+bert_model_path = "sentiment_analysis_model.pt"
+bert_tokenizer = BertTokenizer.from_pretrained(bert_tokenizer_path)
+bert_model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+bert_model.load_state_dict(torch.load(bert_model_path))
+bert_model.to(device).eval()
+
 wttr = Wttr("Vera")
 forecast = wttr.en()
 engine = pyttsx3.init()
@@ -277,59 +310,22 @@ while True:
 
             # Predicts the class of an image
             elif "image" in text:
-                # Load the CNN trained model
-                model_save_path = "cnn_cifar100_model.pth"
-
-                K = 100 # Num classes
-                model = CNN(K)  # Instantiate your CNN model
-                model.load_state_dict(torch.load(model_save_path))
-                model.eval()
-                
                 say("Please input your image path")
                 image_path = input("Input your image path: ")
-                predicted_class = predict_image(image_path, model, transformer_test)
+                predicted_class = predict_image(image_path, cnn_model, transformer_test)
                 print(f"The predicted class for the image is: {predicted_class}")
                 say(f"The predicted class for the image is: {predicted_class}")
 
-                # Load the Object Detection model
-                model_path = "object_detection_model.pth"
-
-                num_classes = 91 # 80 classes + 1 background for COCO
-                model = Object_Detection(num_classes)
-                model.load_state_dict(torch.load(model_path))
-                model.eval()
-
-                infer_and_display(image_path, model, transformer_test, device)
+                infer_and_display(image_path, object_detection_model, transformer_test)
 
             else:
-                # Load GPT-2 tokenizer and model
-                tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-                model = GPT2LMHeadModel.from_pretrained('gpt2')
-                
-                # Load the trained model weights
-                model_save_path = "gpt2_dailydialog.pt"
-                model.load_state_dict(torch.load(model_save_path))
-                model.eval()
-
                 # Uses the trained model if it shouldn't be a manual response
-                response = generate_response(text, model, tokenizer)
+                response = generate_response(text, gpt2_model, gpt2_tokenizer)
                 print("Response:", response)
                 say(response)
 
-                # Paths to the saved model and tokenizer
-                model_save_path = "sentiment_analysis_model.pt"
-                tokenizer_save_path = "sentiment_analysis_tokenizer"
-
-                # Load the tokenizer
-                tokenizer = BertTokenizer.from_pretrained(tokenizer_save_path)
-
-                # Load the sentiment analisis mode"
-                model = BertForSequenceClassification.from_pretrained("bert-base-uncased·, num_labels=2)
-                model.load_state_dict(torch.load(model_save_path))
-                model.eval()
-
                 # Also tells you how you are feeling
-                prediction = predict_sentence(model, tokenizer, text)
+                prediction = predict_sentence(bert_model, bert_tokenizer, text)
                 print(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
                 say(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
                 
