@@ -93,6 +93,66 @@ def infer_and_display(image_path, model, transform):
     plt.axis("off")
     plt.show()
 
+# Define the CNN model class (same as in the training script)
+class Object_Detection(nn.Module):
+    def __init__(self, num_classes):
+        super(CNN, self).__init__()
+
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(32),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(32),
+            nn.MaxPool2d(2),
+        )
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(64),
+            nn.MaxPool2d(2),
+        )
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(128),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.BatchNorm2d(128),
+            nn.MaxPool2d(2),
+        )
+
+        self.fc1 = nn.Linear(128 * 4 * 4, 1024)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout()
+        self.fc2 = nn.Linear(1024, num_classes)
+
+        self.fc3 = nn.Linear(128 * 4 * 4, 1024)
+        self.fc4 = nn.Linear(1024, 4)
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+
+        x_flat = x.view(x.size(0), -1)
+
+        x_class = self.dropout(x_flat)
+        x_class = self.relu(self.fc1(x_class))
+        x_class = self.dropout(x_class)
+        class_logits = self.fc2(x_class)
+
+        x_bbox = self.dropout(x_flat)
+        x_bbox = self.relu(self.fc3(x_bbox))
+        x_bbox = self.dropout(x_bbox)
+        bbox_coordinates = self.fc4(x_bbox)
+
+        return class_logits, bbox_coordinates
+
 wttr = Wttr("Vera")
 forecast = wttr.en()
 engine = pyttsx3.init()
@@ -174,6 +234,16 @@ while True:
                 predicted_class = predict_image(image_path, model, transformer_test)
                 print(f"The predicted class for the image is: {predicted_class}")
                 say(f"The predicted class for the image is: {predicted_class}")
+
+                # Load the Object Detection model
+                model_path = "object_detection_model.pth"
+
+                num_classes = 91 # 80 classes + 1 background for COCO
+                model = Object_Detection(num_classes)
+                model.load_state_dict(torch.load(model_path))
+                model.eval()
+
+                infer_and_display(image_path, model, transformer_test, device)
 
             else:
                 # Load GPT-2 tokenizer and model
