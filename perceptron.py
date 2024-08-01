@@ -64,6 +64,35 @@ def predict_sentence(model, tokenizer, sentence):
         prediction = torch.argmax(outputs.logits, dim=-1)
     return prediction.item()
 
+def infer_and_display(image_path, model, transform):
+    # Load the image
+    image = Image.open(image_path).comavert("RGB")
+
+    # Apply transformations
+    image_tensor = transform(image).unsqueeze(0)
+
+    # Perform inference
+    with torch.no_grad():
+        _, bbox_preds = model(image_tensor)
+        bbox_preds = bbox_preds.cpu().squeeze().tolist()
+
+    # Ensure bbox_preds have correct format
+    if len(bbox_preds) != 4:
+        print("Error: Bounding box predictions are not in correct format")
+        return
+
+    # Convert bbox from [xmin, ymin, width, height] to [xmin, ymin, xmax, ymax]
+    bbox = [bbox_preds[0], bbox_preds[1], bbox_preds[0] + bbox_preds[2], bbox_preds[1] + bbox_preds[3]]
+
+    # Draw bounding box on image
+    draw = ImageDraw.Draw(image)
+    draw.rectangle(bbox, outline="red", width=3)
+
+    # Display image
+    plt.imshow(image)
+    plt.axis("off")
+    plt.show()
+
 wttr = Wttr("Vera")
 forecast = wttr.en()
 engine = pyttsx3.init()
