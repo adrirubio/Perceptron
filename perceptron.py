@@ -308,14 +308,15 @@ while True:
                 time.sleep(2)
                 fart.play()
 
-            # Predicts the class of an image
             elif "image" in text:
+                # Predicts the class of an image
                 say("Please input your image path")
                 image_path = input("Input your image path: ")
                 predicted_class = predict_image(image_path, cnn_model, transformer_test)
                 print(f"The predicted class for the image is: {predicted_class}")
                 say(f"The predicted class for the image is: {predicted_class}")
 
+                # Displays the image with the boxes for the different objects
                 infer_and_display(image_path, object_detection_model, transformer_test)
 
             else:
@@ -324,7 +325,7 @@ while True:
                 print("Response:", response)
                 say(response)
 
-                # Also tells you how you are feeling
+                # Also tells you how you feel in that sentence
                 prediction = predict_sentence(bert_model, bert_tokenizer, text)
                 print(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
                 say(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
