@@ -9,3 +9,16 @@ from datetime import datetime
 
 # Load the IAM Handwriting dataset
 dataset = load_dataset("iam_dataset")
+
+# Define transformations for the images
+transform = transforms.Compose([
+    transforms.Resize((128, 128)),
+    transforms.ToTensor(),
+    transforms.Normalize((0.5,), (0.5,))
+])
+
+# Function to transform images and prepare data
+def transform_example(example):
+    image = Image.open(example['image_path']).convert('RGB')
+    example['image'] = transform(image)
+    return example
