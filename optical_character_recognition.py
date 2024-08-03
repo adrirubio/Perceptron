@@ -12,14 +12,26 @@ dataset = load_dataset("iam_dataset")
 
 # Define transformations for the images
 transform_train = transforms.Compose([
-    transforms.Resize((128, 128)),
+    transforms.RandomCrop(32, padding=4),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomAffine(0, translate=(0.1, 0.1)),
     transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
 ])
 
-# Function to transform images and prepare data
-def transform_example(example):
-    image = Image.open(example["image_path").convert('RGB')
+transform_test = transforms.Compose([
+    transforms.Resize((128, 32)),
+    transforms.ToTensor(),
+])
+
+# Function to transform images and prepare data for the train set
+def transform_train(example):
+    image = Image.open(example["image_path"]).convert("RGB")
+    example["image"] = transform(image)
+    return example
+
+# Function to transform images and prepare data for the test set
+def transform_test(example):
+    image = Image.open(example["image_path"]).convert("RGB")
     example["image"] = transform(image)
     return example
 
