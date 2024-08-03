@@ -24,19 +24,19 @@ transform_test = transforms.Compose([
 ])
 
 # Function to transform images and prepare data for the train set
-def transform_train(example):
+def transform_train_func(example):
     image = Image.open(example["image_path"]).convert("RGB")
     example["image"] = transform_train(image)
     return example
 
 # Function to transform images and prepare data for the test set
-def transform_test(example):
+def transform_test_func(example):
     image = Image.open(example["image_path"]).convert("RGB")
     example["image"] = transform_test(image)
     return example
 
-train_dataset = dataset["train"].map(transform_train, remove_columns["image_path"], batched=False)
-test_dataset = dataset["test"].map(transform_test, remove_columns["image_path"], batched=False)
+train_dataset = dataset["train"].map(transform_train_func, remove_columns["image_path"], batched=False)
+test_dataset = dataset["test"].map(transform_test_func, remove_columns["image_path"], batched=False)
 
 # Check the first example in the training dataset
 train_example = train_dataset[0]
