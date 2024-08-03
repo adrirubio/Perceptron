@@ -35,5 +35,5 @@ def transform_test(example):
     example["image"] = transform(image)
     return example
 
-train_dataset = dataset["train"].map(transform_example, remove_collumns["image_path", batched=False])
+train_dataset = dataset["train"].map(transform_example, remove_collumns["image_path", batched=False)
 test_dataset = dataset["test"].map(transform_example, remove_collumns["image_path"], batched=False)
