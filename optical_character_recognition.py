@@ -40,10 +40,10 @@ test_dataset = dataset["test"].map(transform_test_func, remove_columns["image_pa
 
 # Check the first example in the training dataset
 train_example = train_dataset[0]
-print("Train example image shape: ", train_example["image"][0].shape)
+print("Train example image shape: ", train_example["image"].shape)
 print("Train example transcription: ", train_example["text"])
 
 # Check the first example in the testing dataset
 test_example = test_dataset[0]
-print("Test example image shape: ", test_example["image"][0].shape)
+print("Test example image shape: ", test_example["image"].shape)
 print("Test example transcription: ", test_example["image"])
