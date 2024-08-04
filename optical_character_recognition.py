@@ -48,3 +48,9 @@ print("Train example transcription: ", train_example["text"])
 test_example = test_dataset[0]
 print("Test example image shape: ", test_example["image"].shape)
 print("Test example transcription: ", test_example["image"])
+
+# Data loader
+batch_size = 64
+train_loader = DataLoader(dataset=train_dataset,
+                         batch_size=batch_size,
+                         shuffle=True)
