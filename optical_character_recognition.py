@@ -77,7 +77,7 @@ for batch in test_loader:
 
 class CNN(nn.Module):
     def __init__(self, num_classes, hidden_size=256, num_layers=2):
-        super(HandwritingRecognitionCNN, self).__init__()
+        super(CNN, self).__init__()
         self.conv1 = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=3, padding=1),
             nn.ReLU(),
