@@ -36,8 +36,8 @@ def transform_test_func(example):
     example["image"] = transform_test(image)
     return example
 
-train_dataset = dataset["train"].map(transform_train_func, remove_columns["image_path"], batched=False)
-test_dataset = dataset["test"].map(transform_test_func, remove_columns["image_path"], batched=False)
+train_dataset = dataset["train"].map(transform_train_func, remove_columns=["image_path"], batched=False)
+test_dataset = dataset["test"].map(transform_test_func, remove_columns=["image_path"], batched=False)
 
 # Check the first example in the training dataset
 train_example = train_dataset[0]
@@ -47,7 +47,7 @@ print("Train example transcription: ", train_example["text"])
 # Check the first example in the testing dataset
 test_example = test_dataset[0]
 print("Test example image shape: ", test_example["image"].shape)
-print("Test example transcription: ", test_example["image"])
+print("Test example transcription: ", test_example["text"])
 
 # Data loader
 batch_size = 64
