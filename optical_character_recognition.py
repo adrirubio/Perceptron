@@ -62,7 +62,7 @@ test_loader = DataLoader(dataset=test_dataset,
 # Display some examples from the train_loader
 print("Training batch examples")
 for batch in train_loader:
-    inputs, targets = batch["image"], batch["label"]
+    inputs, targets = batch["image"], batch["text"]
     print(inputs.shape)
     print(targets)
     break
@@ -70,7 +70,7 @@ for batch in train_loader:
 # Display some examples from the test_loader
 print("\nTesting batch examples")
 for batch in test_loader:
-    inputs, targets = batch["image"], batch["label"]
+    inputs, targets = batch["image"], batch["text"]
     print(inputs.shape)
     print(targets)
     break
