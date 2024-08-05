@@ -97,7 +97,7 @@ def infer_and_display(image_path, model, transform):
 # Define the CNN model class (same as in the training script)
 class Object_Detection(nn.Module):
     def __init__(self, num_classes):
-        super(CNN, self).__init__()
+        super(Object_Detection, self).__init__()
 
         self.conv1 = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=3, padding=1),
