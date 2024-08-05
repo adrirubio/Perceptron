@@ -121,3 +121,4 @@ class CNN(nn.Module):
         x = self.dropout(self.relu(self.fc1(x)))
         x = self.fc2(x)
         return x
+
