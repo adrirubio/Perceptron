@@ -61,14 +61,16 @@ test_loader = DataLoader(dataset=train_dataset,
 
 # Display some examples from the train_loader
 print("Training batch examples")
-for inputs, targets in train_loader:
+for batch in train_loader:
+    inputs, targets = batch["image"], batch["label"]
     print(inputs.shape)
     print(targets)
     break
 
 # Display some examples from the test_loader
-print("/nTesting batch examples")
-for inputs, targets in test_loader:
+print("\nTesting batch examples")
+for batch in test_loader:
+    inputs, targets = batch["image"], batch["label"]
     print(inputs.shape)
     print(targets)
     break
