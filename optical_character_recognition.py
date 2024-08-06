@@ -126,3 +126,8 @@ class CNN(nn.Module):
 # Example usage
 num_classes = 100  # This should be the number of unique characters or classes in your dataset
 model = CNN(num_classes)
+
+# Mode model to the GPU
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
+model.to(device)
