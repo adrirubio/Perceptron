@@ -127,13 +127,13 @@ class CNN(nn.Module):
 num_classes = 100  # This should be the number of unique characters or classes in your dataset
 model = CNN(num_classes)
 
-# Mode model to the GPU
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+# Move data to the GPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 model.to(device)
 
 # Loss and optimizer
-criterion = nn.CrossEntropyLoss()
+criterion = nn.CTCLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
