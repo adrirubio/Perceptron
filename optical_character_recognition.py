@@ -27,27 +27,29 @@ transform_test = transforms.Compose([
 
 # Function to transform images and prepare data for the train set
 def transform_train_func(example):
-    image = Image.open(example["image"]).convert("RGB")
-    example["image"] = transform_train(image)
-    return example
+  # Directly apply the transformations since the image is already loaded
+  image = example["image"].convert("RGB")
+  example["image"] = transform_train(image)
+  return example
 
 # Function to transform images and prepare data for the test set
 def transform_test_func(example):
-    image = Image.open(example["image"]).convert("RGB")
-    example["image"] = transform_test(image)
-    return example
+  # Directly apply the transformations since the image is already loaded
+  image = example["image"].convert("RGB")
+  example["image"] = transform_test(image)
+  return example
 
-train_dataset = dataset["train"].map(transform_train_func, remove_columns=["image"], batched=False)
-test_dataset = dataset["test"].map(transform_test_func, remove_columns=["image"], batched=False)
+train_dataset = dataset["train"].map(transform_train_func, batched=False)
+test_dataset = dataset["test"].map(transform_test_func, batched=False)
 
 # Check the first example in the training dataset
 train_example = train_dataset[0]
-print("Train example image shape: ", train_example["image"].shape)
+print("Train example image shape: ", train_example["image"])
 print("Train example transcription: ", train_example["text"])
 
 # Check the first example in the testing dataset
 test_example = test_dataset[0]
-print("Test example image shape: ", test_example["image"].shape)
+print("Test example image shape: ", test_example["image"])
 print("Test example transcription: ", test_example["text"])
 
 # Data loader
@@ -64,7 +66,7 @@ test_loader = DataLoader(dataset=test_dataset,
 print("Training batch examples")
 for batch in train_loader:
     inputs, targets = batch["image"], batch["text"]
-    print(inputs.shape)
+    print(inputs)
     print(targets)
     break
 
@@ -72,7 +74,7 @@ for batch in train_loader:
 print("\nTesting batch examples")
 for batch in test_loader:
     inputs, targets = batch["image"], batch["text"]
-    print(inputs.shape)
+    print(inputs)
     print(targets)
     break
 
