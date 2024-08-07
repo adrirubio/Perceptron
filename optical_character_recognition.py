@@ -7,6 +7,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
+from datasets import load_dataset
 
 # Load the IAM Handwriting dataset
 dataset = load_dataset("iam_dataset")
