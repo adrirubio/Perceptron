@@ -148,3 +148,26 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
         model.train() # Set model to training mode
         t0 = datatime.now()
         train_loss = []
+
+        for batch in train_loader:
+            # Get inputs and targets from the batch
+            inputs = batch["image"]
+            targets = batch["text"]
+
+            # Move data to the GPU
+            inputs, targets = inputs.to(device), targets.to(device)
+
+            # Zero the the parameter gradients
+            optimizer.zero_grad()
+
+            # Forward pass
+            outputs = model(inputs)
+            loss = criterion(outputs, targets)
+
+            # Backward and optimize
+            loss.backward()
+            optimizer.step()
+
+            train_loss.append(loss.item())
+
+        train_loss = np.mean(train_loss) # Compute mean train loss for this epoch
