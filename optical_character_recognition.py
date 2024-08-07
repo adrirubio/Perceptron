@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 from datasets import load_dataset
+from sklearn.preprocessing import LabelEncoder
 
 # Load the IAM Handwriting dataset
 dataset = load_dataset("Teklia/IAM-line")
@@ -41,6 +42,22 @@ def transform_test_func(example):
 
 train_dataset = dataset["train"].map(transform_train_func, batched=False)
 test_dataset = dataset["test"].map(transform_test_func, batched=False)
+
+# Encode text labels to numerical indices
+label_encoder = LabelEncoder()
+
+# Fit label encoder on the train dataset's text labels
+train_texts = [example["text"] for example in train_dataset]
+label_encoder.fit(train_texts)
+
+# Define a function to encode text labels to indices
+def encode_labels(example):
+    example["text"] = label_encoder.transform([example["text"]])[0]
+    return example
+
+# Apply label encoding to the datasets
+train_dataset = train_dataset.map(encode_labels, batched=False)
+test_dataset = test_dataset.map(encode_labels, batched=False)
 
 # Check the first example in the training dataset
 train_example = train_dataset[0]
@@ -127,7 +144,7 @@ class CNN(nn.Module):
         return x
 
 # Example usage
-num_classes = 100  # This should be the number of unique characters or classes in your dataset
+num_classes = len(label_encoder.classes_)  # This should be the number of unique characters or classes in your dataset
 model = CNN(num_classes)
 
 # Move data to the GPU
