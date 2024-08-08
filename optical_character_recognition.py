@@ -195,3 +195,26 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
         model.eval() # Set model to evaluation mode
         test_loss = []
+        with torch.no_grad():
+            for batch in test_loader:
+                # Get inputs and targets from the batch
+                inputs = batch["images"]
+                targets = batch["text"]
+
+                # Move data to the GPU
+                inputs, targets = inputs.to(device), targets.to(device)
+
+                # Forward pass
+                outputs = model(inputs)
+                loss = criterion(outputs, targets)
+
+                test_loss.append(loss.item())
+
+        test_loss = np.mean(test_loss) # Computs mean test loss for this epoch
+
+        train_losses[it] = train_loss
+        test_losses[it] = test_loss
+
+        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Duration: {datetime.now() - t0}')
+
+    return train_losses, test_losses
