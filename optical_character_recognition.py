@@ -51,13 +51,17 @@ train_texts = [example["text"] for example in train_dataset]
 label_encoder.fit(train_texts)
 
 # Define a function to encode text labels to indices
-def encode_labels(example):
-    example["text"] = label_encoder.transform([example["text"]])[0]
+def encode_labels(example, is_train=True):
+    try:
+        example["text"] = label_encoder.transform([example["text"]])[0]
+    except ValueError:
+        # Assign a special index for unknown labels if in test set
+        example["text"] = len(label_encoder.classes_)
     return example
 
 # Apply label encoding to the datasets
-train_dataset = train_dataset.map(encode_labels, batched=False)
-test_dataset = test_dataset.map(encode_labels, batched=False)
+train_dataset = train_dataset.map(lambda example: encode_labels(example, is_train=True), batched=False)
+test_dataset = test_dataset.map(lambda example: encode_labels(example, is_train=False), batched=False)
 
 # Check the first example in the training dataset
 train_example = train_dataset[0]
