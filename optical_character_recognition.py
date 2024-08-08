@@ -198,7 +198,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
         with torch.no_grad():
             for batch in test_loader:
                 # Get inputs and targets from the batch
-                inputs = batch["images"]
+                inputs = batch["image"]
                 targets = batch["text"]
 
                 # Move data to the GPU
@@ -219,4 +219,4 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
     return train_losses, test_losses
 
-train_losses, test_losses = batch_gd(model, criteron, optimizer, train_loader, test_loader, epochs=10)
+train_losses, test_losses = batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs=10)
