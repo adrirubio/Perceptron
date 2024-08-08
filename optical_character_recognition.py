@@ -192,3 +192,6 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
             train_loss.append(loss.item())
 
         train_loss = np.mean(train_loss) # Compute mean train loss for this epoch
+
+        model.eval() # Set model to evaluation mode
+        test_loss = []
