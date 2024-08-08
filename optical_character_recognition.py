@@ -218,3 +218,5 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
         print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Duration: {datetime.now() - t0}')
 
     return train_losses, test_losses
+
+train_losses, test_losses = batch_gd(model, criteron, optimizer, train_loader, test_loader, epochs=10)
