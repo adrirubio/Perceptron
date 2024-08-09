@@ -231,3 +231,26 @@ plt.show()
 model_save_path = "optical_character_recognition"
 torch.save(model.save_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
+
+# Accuracy
+n_correct = 0
+n_total = 0
+for batch in train_loader:
+    inputs = batch["images"]
+    targets = batch["text"]
+
+    # Move inputs and targets to the GPU
+    inputs, targets = inputs.to(device), targets.to(device)
+
+    # Forward pass
+    outputs = model(inputs)
+
+    # Get predictions
+    # torch.max returns both max and argmax
+    _, predictions = torch.max(outputs, 1)
+
+    # Update counts
+    n_correct += (predictions == targets).sum().item()
+    n_total += targets.shape[0]
+
+train_acc = n_correct / n_total
