@@ -226,3 +226,8 @@ plt.plot(train_losses, label="train loss")
 plt.plot(test_losses, label="test loss")
 plt.legend()
 plt.show()
+
+# Save model
+model_save_path = "optical_character_recognition"
+torch.save(model.save_dict(), model_save_path)
+print(f"Model saved to {model_save_path}")
