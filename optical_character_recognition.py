@@ -236,7 +236,7 @@ print(f"Model saved to {model_save_path}")
 n_correct = 0
 n_total = 0
 for batch in train_loader:
-    inputs = batch["images"]
+    inputs = batch["image"]
     targets = batch["text"]
 
     # Move inputs and targets to the GPU
