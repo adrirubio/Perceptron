@@ -43,6 +43,24 @@ def transform_test_func(example):
 train_dataset = dataset["train"].map(transform_train_func, batched=False)
 test_dataset = dataset["test"].map(transform_test_func, batched=False)
 
+def list_to_image(image_list):
+    # Convert list to a numpy array and reshape to 32x32x3
+    array = np.array(image_list, dtype=np.float32)
+    array = array.reshape(32, 32, 3)  # Reshape to (height, width, channels)
+    
+    # Convert to an image
+    return Image.fromarray((array * 255).astype(np.uint8), mode='RGB')
+
+# Example usage:
+train_example = train_dataset[0]
+image_list = train_example["image"]
+
+if isinstance(image_list, list):
+    image = list_to_image(image_list)
+    print(type(image))  # Should now be <class 'PIL.Image.Image'>
+    print(image.size)   # Should be (32, 32)
+    print(image.mode)   # Should be 'RGB'
+
 # Encode text labels to numerical indices
 label_encoder = LabelEncoder()
 
