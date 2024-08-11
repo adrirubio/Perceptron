@@ -26,6 +26,18 @@ transform_test = transforms.Compose([
     transforms.ToTensor(),
 ])
 
+def list_to_image(image_list):
+    # Convert list to a numpy array and reshape to 32x32x3
+    array = np.array(image_list, dtype=np.float32)
+    array = array.reshape(32, 32, 3)  # Reshape to (height, width, channels)
+    
+    # Convert to an image
+    return Image.fromarray((array * 255).astype(np.uint8), mode='RGB')
+
+# Example usage:
+train_example = train_dataset[0]
+image_list = train_example["image"]
+
 # Function to transform images and prepare data for the train set
 def transform_train_func(example):
   # Directly apply the transformations since the image is already loaded
