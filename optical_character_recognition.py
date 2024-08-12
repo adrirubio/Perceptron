@@ -43,6 +43,9 @@ def transform_test_func(example):
 train_dataset = dataset["train"].map(transform_train_func, batched=False)
 test_dataset = dataset["test"].map(transform_test_func, batched=False)
 
+train_dataset.set_format("pt", columns=["image"], output_all_columns=True)
+test_dataset.set_format("pt", columns=["image"], output_all_columns=True)
+
 def list_to_image(image_list):
     # Convert list to a numpy array and reshape to 32x32x3
     array = np.array(image_list, dtype=np.float32)
