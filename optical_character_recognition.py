@@ -297,3 +297,29 @@ for batch in test_loader:
     n_total += targets.shape[0]
 
 test_acc = n_correct / n_total
+
+def inference(model, image, label_encoder):
+    # Ensure the model is in evaluation mode
+    model.eval()
+
+    # Preprocess the input image using the pre-defined transform_test
+    image = transform_test(image).unsqueeze(0).to(device)  # Add batch dimension and move to the device
+    
+    with torch.no_grad():
+        # Forward pass
+        output = model(image)
+
+        # Get the predicted label (index)
+        _, predicted_idx = torch.max(output, 1)
+
+        # Decode the label
+        predicted_label = label_encoder.inverse_transform(predicted_idx.cpu().numpy())
+    
+    return predicted_label[0]
+
+# Example usage with a test image
+test_image = Image.open("path_to_test_image.jpg").convert("RGB")
+
+# Perform inference
+predicted_label = inference(model, test_image, label_encoder)
+print(f"Predicted Label: {predicted_label}")
