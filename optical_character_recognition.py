@@ -123,7 +123,7 @@ for batch in test_loader:
 
 class OCR(nn.Module):
     def __init__(self, num_classes, hidden_size=256, num_layers=2):
-        super(CNN, self).__init__()
+        super(OCR, self).__init__()
         self.conv1 = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=3, padding=1),
             nn.ReLU(),
@@ -171,7 +171,7 @@ class OCR(nn.Module):
 
 # Example usage
 num_classes = len(label_encoder.classes_)  # This should be the number of unique characters or classes in your dataset
-model = CNN(num_classes)
+model = OCR(num_classes)
 
 # Move data to the GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
