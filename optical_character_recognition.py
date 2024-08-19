@@ -55,7 +55,7 @@ def list_to_image(image_list):
     # Convert to an image
     return Image.fromarray((array * 255).astype(np.uint8), mode='RGB')
 
-# Example usage:
+# Example:
 train_example = train_dataset[0]
 image_list = train_example["image"]
 
