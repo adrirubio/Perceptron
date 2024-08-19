@@ -121,7 +121,7 @@ for batch in test_loader:
     print(targets)
     break
 
-class CNN(nn.Module):
+class OCR(nn.Module):
     def __init__(self, num_classes, hidden_size=256, num_layers=2):
         super(CNN, self).__init__()
         self.conv1 = nn.Sequential(
