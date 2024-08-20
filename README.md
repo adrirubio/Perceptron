@@ -20,6 +20,36 @@
 
 ---
 
+## ✨ Manual Commands and Actions
+
+Perceptron is not only capable of holding conversations, but it can also perform a variety of specific tasks when triggered by certain commands. Below are some of the manual commands you can use to interact with Perceptron:
+
+### 1. **Check the Time**
+   - **Command**: `"time"`
+   - **Description**: Perceptron will respond with the current time based on your system's timezone.
+
+### 2. **Check the Weather**
+   - **Command**: `"weather"`
+   - **Description**: Get the current weather conditions in your location or in a specified city.
+   
+### 3. **Search on Wikipedia**
+   - **Command**: `"wiki [topic]"`
+   - **Description**: Perceptron will fetch a summary of the topic from Wikipedia.
+
+### 4. **Search on Google**
+   - **Command**: `"Search Google for [query]"`
+   - **Description**: Initiates a Google search and returns the top results.
+
+### 5. **Play Music**
+   - **Command**: `"Play music"`
+   - **Description**: Perceptron will start playing music either from a local library or a streaming service.
+
+### 6. **Stop Music**
+   - **Command**: `"Stop music"`
+   - **Description**: Stops the currently playing music.
+
+---
+
 ## 🛠️ How to Run the Project
 
 ### Prerequisites
