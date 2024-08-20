@@ -56,6 +56,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 1. **Clone the Repository**:
    Open Google Colab in your browser: [Google Colab](https://colab.research.google.com/)
+   
    Start a new notebook and run the following code to clone the repository:
     
     ```python
