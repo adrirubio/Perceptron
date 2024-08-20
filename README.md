@@ -79,9 +79,9 @@ Perceptron is not only capable of holding conversations, but it can also perform
 3. **Run Perceptron**:
     - After all models are trained, run the following script to start using Perceptron:
 
-    ```python
-    %run Perceptron.py
-    ```
+      ```python
+      %run Perceptron.py
+      ```
 
 4. **Enjoy!**:
     - Your Perceptron AI assistant is now fully operational!
