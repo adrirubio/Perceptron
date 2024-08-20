@@ -63,7 +63,8 @@ Perceptron is not only capable of holding conversations, but it can also perform
     %cd Perceptron
     ```
 
-   - Now move to the '"Perceptron"'
+   - Now move to the `"Perceptron"` directory on google colab
+   - One by one run the following 4 model to train them P.S. it might take some time to train them
 
 ### Running Perceptron
 
