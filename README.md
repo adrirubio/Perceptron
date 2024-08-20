@@ -8,15 +8,15 @@
 
 ## 🚀 Features
 
-- **Conversational AI**: Chat with Perceptron using natural language. Trigger actions like playing music, searching on Google/Wikipedia, getting the time, or checking the weather.
+- **Conversational AI 🤖**: Chat with Perceptron using natural language. Trigger actions like playing music, searching on Google/Wikipedia, getting the time, or checking the weather.
   
-- **Image Recognition**: Say "image" and provide a file path to get predictions on what the image contains.
+- **Image Recognition 💡**: Say "image" and provide a file path to get predictions on what the image contains.
 
-- **Sentiment Analysis**: Perceptron analyzes the sentiment of the conversation, predicting emotions like happiness, sadness, and more.
+- **Sentiment Analysis ✨**: Perceptron analyzes the sentiment of the conversation, predicting emotions like happiness, sadness, and more.
 
-- **Object Detection**: Detect and highlight objects in images with bounding boxes.
+- **Object Detection 📸**: Detect and highlight objects in images with bounding boxes.
 
-- **Optical Character Recognition (OCR)**: Extract and identify text from images.
+- **Optical Character Recognition (OCR) 🔍**: Extract and identify text from images.
 
 ---
 
@@ -24,27 +24,27 @@
 
 Perceptron is not only capable of holding conversations, but it can also perform a variety of specific tasks when triggered by certain commands. Below are some of the manual commands you can use to interact with Perceptron:
 
-### 1. **Check the Time**
+### 1. **Check the Time 🕒**
    - **Command**: `"time"`
    - **Description**: Perceptron will respond with the current time based on your system's timezone.
 
-### 2. **Check the Weather**
+### 2. **Check the Weather 🌡️**
    - **Command**: `"weather"`
    - **Description**: Get the current weather conditions in your location or in a specified city.
    
-### 3. **Search on Wikipedia**
+### 3. **Search on Wikipedia 📖**
    - **Command**: `"wiki [topic]"`
    - **Description**: Perceptron will fetch a summary of the topic from Wikipedia.
 
-### 4. **Search on Google**
+### 4. **Search on Google 🌐**
    - **Command**: `"Search Google for [query]"`
    - **Description**: Initiates a Google search and returns the top results.
 
-### 5. **Play Music**
+### 5. **Play Music 🎧**
    - **Command**: `"Play music"`
    - **Description**: Perceptron will start playing music either from a local library or a streaming service.
 
-### 6. **Stop Music**
+### 6. **Stop Music 🎧**
    - **Command**: `"Stop music"`
    - **Description**: Stops the currently playing music.
 
