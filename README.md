@@ -60,8 +60,8 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
     
     ```python
-    !git clone https://github.com/adrirubio/perceptron.git
-    %cd perceptron
+    !git clone https://github.com/adrirubio/Perceptron.git
+    %cd Perceptron
     ```
 
 ### Running Perceptron
