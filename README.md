@@ -52,29 +52,15 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 ## 🛠️ How to Run the Project
 
-### Prerequisites
-
-- Python 3
-- Virtual Environment (recommended)
-- Required Python packages listed in `requirements.txt`
-
 ### Installation
 
 1. **Clone the Repository**:
-    ```bash
-    git clone https://github.com/adrirubio/perceptron.git
-    cd perceptron
-    ```
+    - Open Google Colab in your browser: [Google Colab](https://colab.research.google.com/)
+    - Start a new notebook and run the following code to clone the repository:
 
-2. **Set Up Virtual Environment**:
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
-
-3. **Install Dependencies**:
-    ```bash
-    pip install -r requirements.txt
+    ```python
+    !git clone https://github.com/adrirubio/perceptron.git
+    %cd perceptron
     ```
 
 ### Running Perceptron
