@@ -56,8 +56,7 @@
 
 2. **Interacting with Perceptron**:
    - **Trigger conversation** by saying Perceptron's name: `"Perceptron"`
-   - **Ask to recognize an image**: `"image"`, followed by the file path
-   - **Request object detection**: `"detect objects"`, followed by the file path
+   - **Ask to recognize and detect object in an image**: `"image"`, followed by the file path
    - **Perform OCR**: `"read text"`, followed by the file path
 
 ---
