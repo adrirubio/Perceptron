@@ -32,7 +32,7 @@
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/perceptron.git
+    git clone https://github.com/adrirubio/perceptron.git
     cd perceptron
     ```
 
