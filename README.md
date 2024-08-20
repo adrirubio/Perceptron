@@ -58,10 +58,10 @@ Perceptron is not only capable of holding conversations, but it can also perform
     - Open [Google Colab](https://colab.research.google.com/) in your browser.
     - Start a new notebook and run the following code to clone the repository and navigate to the `"Perceptron"` directory:
 
-    ```python
-    !git clone https://github.com/adrirubio/perceptron.git
-    %cd perceptron
-    ```
+      ```python
+      !git clone https://github.com/adrirubio/perceptron.git
+      %cd perceptron
+      ```
 
 2. **Train the Models**:
     - Run the following script four times each with the name of the a different model one by one in Colab to train the models (this may take some time):
