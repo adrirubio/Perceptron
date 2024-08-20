@@ -81,16 +81,6 @@ Perceptron is not only capable of holding conversations, but it can also perform
     - Your Perceptron AI assistant is now fully operational!
 ### Running Perceptron
 
-1. **Start the Application**:
-    ```bash
-    python perceptron.py
-    ```
-
-2. **Interacting with Perceptron**:
-   - **Trigger conversation** by saying Perceptron's name: `"Perceptron"`
-   - **Ask to recognize and detect object in an image**: `"image"`, followed by the file path
-   - **Perform OCR**: `"read text"`, followed by the file path
-
 ---
 
 ## 🎥 Demo
