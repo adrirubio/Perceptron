@@ -55,23 +55,30 @@ Perceptron is not only capable of holding conversations, but it can also perform
 ### Installation
 
 1. **Clone the Repository**:
-   - Open Google Colab in your browser: [Google Colab](https://colab.research.google.com/)
-   - Start a new notebook and run the following code to clone the repository:
-   
+    - Open [Google Colab](https://colab.research.google.com/) in your browser.
+    - Start a new notebook and run the following code to clone the repository and navigate to the `"Perceptron"` directory:
+
     ```python
     !git clone https://github.com/adrirubio/perceptron.git
     %cd perceptron
     ```
 
-   - Now move to the `"Perceptron"` directory on google colab
-   - One by one run the following 4 model to train them P.S. it might take some time to train them
-   `"transfer_learning_model.py"`
-   `"CNN_model.py"`
-   `"object_detection"`
-   `"sentiment_analisis_model"`
-   - Once they have all been successfully trained finally run `"Perceptron"`
-   - Now you have fully working Perceptron!!! Enjoy!!!
+2. **Train the Models**:
+    - Run the following scripts one by one in Colab to train the models (this may take some time):
+      - `"transfer_learning_model.py"`
+      - `"CNN_model.py"`
+      - `"object_detection.py"`
+      - `"sentiment_analysis_model.py"`
 
+3. **Run Perceptron**:
+    - After all models are trained, run the following script to start using Perceptron:
+
+    ```python
+    %run Perceptron.py
+    ```
+
+4. **Enjoy!**:
+    - Your Perceptron AI assistant is now fully operational!
 ### Running Perceptron
 
 1. **Start the Application**:
