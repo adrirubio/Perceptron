@@ -84,8 +84,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
       ```
 
 4. **Enjoy!**:
-    - Your Perceptron AI assistant is now fully operational!
-### Running Perceptron
+    - Your Perceptron AI assistant is now fully operational!!!
 
 ---
 
