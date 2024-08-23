@@ -1,5 +1,6 @@
 # Add necessary imports
 import torch
+import torch.nn as nn
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torchvision.transforms as transforms
 from transformers import BertTokenizer, BertForSequenceClassification
