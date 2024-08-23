@@ -38,7 +38,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 ### 4. **Search on Google 🌐**
    - **Command**: `"Search Google for [query]"`
-   - **Description**: Initiates a Google search and returns the top results.
+   - **Description**: Initiates a Google search and opens the search.
 
 ### 5. **Play Music 🎧**
    - **Command**: `"Play music"`
