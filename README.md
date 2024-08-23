@@ -1,7 +1,7 @@
 # Perceptron 🧠
 
 ### The Ultimate AI-Powered Assistant
-****The Goal****
+***The Goal***
 
 **Perceptron** is a cutting-edge AI-powered assistant that combines multiple AI models into a single, powerful tool. By simply invoking its name, "Perceptron," you can trigger various actions—from having a conversation to performing complex image analysis. With integrated models for sentiment analysis, image recognition, object detection, and OCR (Optical Character Recognition), Perceptron is designed to make your interactions as seamless and intelligent as possible.
 
