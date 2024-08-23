@@ -7,6 +7,7 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from PIL import Image, ImageDraw, ImageFont
 import speech_recognition as sr
 import pyaudio
+# Error
 import pywhatkit
 import datetime
 import pyttsx3
