@@ -12,11 +12,11 @@
   
 - **Image Recognition 💡**: Say "image" and provide a file path to get predictions on what the image contains.
 
-- **Sentiment Analysis ✨**: Perceptron analyzes the sentiment of the conversation, predicting emotions like happiness, sadness, and more.
+- **Sentiment Analysis --> (work in progress)✨**: Perceptron analyzes the sentiment of the conversation, predicting emotions like happiness, sadness, and more.
 
 - **Object Detection 📸**: Detect and highlight objects in images with bounding boxes.
 
-- **Optical Character Recognition (OCR) 🔍**: Extract and identify text from images.
+- **Optical Character Recognition (OCR) --> (work in progress) 🔍**: Extract and identify text from images.
 
 ---
 
@@ -74,7 +74,6 @@ Perceptron is not only capable of holding conversations, but it can also perform
       - `"transfer_learning_model.py"`
       - `"CNN_model.py"`
       - `"object_detection.py"`
-      - `"sentiment_analysis_model.py"`
 
 3. **Run Perceptron**:
     - After all models are trained, run the following script to start using Perceptron:
