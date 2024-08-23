@@ -42,7 +42,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 ### 5. **Play Music 🎧**
    - **Command**: `"Play music"`
-   - **Description**: Perceptron will start playing music either from a local library or a streaming service.
+   - **Description**: Perceptron will start playing music from a specified local library.
 
 ### 6. **Stop Music 🎧**
    - **Command**: `"Stop music"`
