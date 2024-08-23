@@ -77,8 +77,27 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 
     - `"object_detection.py"`
+  
+      ```python
+      !pip install datasets
 
+      # Download the COCO dataset
+      !wget http://images.cocodataset.org/zips/train2017.zip -O coco_train2017.zip
+      !wget http://images.cocodataset.org/zips/val2017.zip -O coco_val2017.zip
+      !wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip -O coco_ann2017.zip
 
+      # Create directories to save the data
+      !mkdir -p coco/train2017 coco/val2017 coco/annotations
+
+      # Unzip the downloaded files
+      !unzip coco_train2017.zip -d coco/
+      !unzip coco_val2017.zip -d coco/
+      !unzip coco_ann2017.zip -d coco/
+
+      # Clean up zip files
+      !rm coco_train2017.zip coco_val2017.zip coco_ann2017.zip
+      %run transfer_learning_model.py
+      ```
 
 4. **Run Perceptron**:
     - After all models are trained, run the following script to start using Perceptron:
