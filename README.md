@@ -26,7 +26,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 ### 1. **Check the Time 🕒**
    - **Command**: `"time"`
-   - **Description**: Perceptron will respond with the current time based on your system's timezone.
+   - **Description**: Perceptron will respond with the current time.
 
 ### 2. **Check the Weather 🌡️**
    - **Command**: `"weather"`
