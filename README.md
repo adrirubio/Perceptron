@@ -73,10 +73,10 @@ Perceptron is not only capable of holding conversations, but it can also perform
       %run transfer_learning_model.py
       ```
       
-      - `"CNN_model.py"`
+    - `"CNN_model.py"`
 
 
-      - `"object_detection.py"`
+    - `"object_detection.py"`
 
 
 
