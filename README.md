@@ -79,6 +79,17 @@ Perceptron is not only capable of holding conversations, but it can also perform
     - After all models are trained, run the following script to start using Perceptron:
 
       ```python
+      !pip install transformers
+      !pip install Pillow
+      !pip install speechrecognition
+      !sudo apt-get install portaudio19-dev
+      !pip install pyaudio
+      !pip install pywhatkit
+      !pip install pyttsx3
+      !pip install pygame
+      !pip install wikipedia-api
+      !pip install python-vlc
+      !pip install pywttr
       %run Perceptron.py
       ```
 
