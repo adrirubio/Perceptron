@@ -95,7 +95,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 4. **Enjoy!**:
     - Your Perceptron AI assistant is now up and running!!!
-    - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) might have some flaws.
+    - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) is a bit outdated and as lately I have been working on the AI models the inference code might have some flaws.
 
 ---
 
