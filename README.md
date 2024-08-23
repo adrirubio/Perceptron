@@ -89,7 +89,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 ## 🎥 Demo
 
---> Comming soon
+--> Coming soon
 
 ---
 
