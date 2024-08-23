@@ -59,7 +59,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
     - Start a new notebook and run the following code to clone the repository and navigate to the `"Perceptron"` directory:
 
       ```python
-      !git clone https://github.com/adrirubio/perceptron.git
+      !git clone https://github.com/adrirubio/Perceptron.git
       %cd perceptron
       ```
 
