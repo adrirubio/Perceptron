@@ -66,7 +66,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 2. **Train the Models**:
     - Run the following scripts one time each one by one in Colab to train the models (this may take some time):
 
-      - `"transfer_learning_model.py"`
+    - `"transfer_learning_model.py"`
       
       ```python
       !pip install datasets
