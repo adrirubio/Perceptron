@@ -65,17 +65,22 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 2. **Train the Models**:
     - Run the following scripts one time each one by one in Colab to train the models (this may take some time):
+
+      - `"transfer_learning_model.py"`
       
       ```python
       !pip install datasets
-      %run name-of-the-model.py
+      %run transfer_learning_model.py
       ```
       
-      - `"transfer_learning_model.py"`
       - `"CNN_model.py"`
+
+
       - `"object_detection.py"`
 
-3. **Run Perceptron**:
+
+
+4. **Run Perceptron**:
     - After all models are trained, run the following script to start using Perceptron:
 
       ```python
@@ -93,7 +98,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
       %run Perceptron.py
       ```
 
-4. **Enjoy!**:
+5. **Enjoy!**:
     - Your Perceptron AI assistant is now up and running!!!
     - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) is a bit outdated and as lately I have been working on the AI models the inference code might have some flaws.
 
