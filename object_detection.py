@@ -7,7 +7,6 @@ from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
-
 from google.colab import files
 
 # Trigger the file upload dialog
