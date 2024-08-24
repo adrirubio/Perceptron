@@ -77,8 +77,11 @@ Perceptron is not only capable of holding conversations, but it can also perform
       ```
       
     - `"CNN_model.py"`
-
-
+   
+      ```python
+      %run CNN_model.py
+      ```
+      
     - `"object_detection.py"`
   
       ```python
