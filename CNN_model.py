@@ -46,9 +46,9 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           shuffle=False)
 
 for inputs, targets in train_loader:
-    print("Inputs: ", inputs)
-    print("Targets: ", targets)
-    break
+  print("Inputs: ", inputs)
+  print("Targets: ", targets)
+  break
 
 # Create DataLoader for training without data augmentation (for accuracy evaluation)
 train_dataset_fixed = torchvision.datasets.CIFAR100(
@@ -114,7 +114,9 @@ class CNN(nn.Module):
         x = self.relu(self.fc1(x))
         x = self.dropout(x)
         x = self.fc2(x)
-        
+
+        return x
+
 # Instantiate the model
 model = CNN(K)
 
@@ -129,68 +131,71 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
-    train_losses = np.zeros(epochs)
-    test_losses = np.zeros(epochs)
+  train_losses = np.zeros(epochs)
+  test_losses = np.zeros(epochs)
 
-    for it in range(epochs):
-        model.train() # Set model to training mode
-        t0 = datetime.now()
-        train_loss = []
-        for inputs, targets in train_loader:
-            # move data to GPU
-            inputs, targets = inputs.to(device), targets.to(device)
+  for it in range(epochs):
+    model.train() # Set model to training mode
+    t0 = datetime.now()
+    train_loss = []
+    for inputs, targets in train_loader:
+      # move data to GPU
+      inputs, targets = inputs.to(device), targets.to(device)
 
-            # zero the parameter gradients
-            optimizer.zero_grad()
+      # zero the parameter gradients
+      optimizer.zero_grad()
 
-            # Forward pass
-            outputs = model(inputs)
-            loss = criterion(outputs, targets)
+      # Forward pass
+      outputs = model(inputs)
+      loss = criterion(outputs, targets)
 
-            loss = criterion(outputs, targets)
+      loss = criterion(outputs, targets)
 
-            # Backward and optimize
-            loss.backward()
-            optimizer.step()
+      # Backward and optimize
+      loss.backward()
+      optimizer.step()
 
-            train_loss.append(loss.item())
+      train_loss.append(loss.item())
 
-        # Get train loss and test loss
-        train_loss = np.mean(train_loss) # a little misleading
+    # Get train loss and test loss
+    train_loss = np.mean(train_loss) # a little misleading
 
-        model.eval()
-        test_loss = []
-        for inputs, targets in test_loader:
-      
-            # Move data to the GPU
-            inputs, targets = inputs.to(device), targets.to(device)
+    # Get train_loss
+    train_loss = np.mean(train_loss)
 
-            # Forward pass
-            outputs = model(inputs)
-            loss = criterion(outputs, targets)
+    model.eval()
+    test_loss = []
+    for inputs, targets in test_loader:
 
-            test_loss.append(loss.item())
-    
-        # Get test loss
-        test_loss = np.mean(test_loss)
+      # Move data to the GPU
+      inputs, targets = inputs.to(device), targets.to(device)
 
-        # Save losses
-        train_losses[it] = train_loss
-        test_losses[it] = test_loss
+      # Forward pass
+      outputs = model(inputs)
+      loss = criterion(outputs, targets)
 
-        dt = datetime.now() - t0
-      
-        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
-              f'Test Loss: {test_loss:.4f}, Duration: {dt}')
-    
-    return train_losses, test_losses
+      test_loss.append(loss.item())
+
+    # Get test loss
+    test_loss = np.mean(test_loss)
+
+    # Save losses
+    train_losses[it] = train_loss
+    test_losses[it] = test_loss
+
+    dt = datetime.now() - t0
+
+    print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
+      Test Loss: {test_loss:.4f}, Duration: {dt}')
+
+  return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
     model, criterion, optimizer, train_loader, test_loader, epochs=80)
 
-# Plot the test and train loss
-plt.plot(train_losses, label="train loss")
-plt.plot(test_losses, label="test loss")
+# Plot the train loss and test loss
+plt.plot(train_losses, label='train loss')
+plt.plot(test_losses, label='test loss')
 plt.legend()
 plt.show()
 
@@ -200,42 +205,44 @@ torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
 
 # Accuracy
+
 model.eval()
 n_correct = 0.
-n_total = 0
+n_total = 0.
 for inputs, targets in train_loader_fixed:
-    # Move to GPU
-    inputs, targets = inputs.to(device), targets.to(device)
+  # Move to GPU
+  inputs, targets = inputs.to(device), targets.to(device)
 
-    # Forward pass
-    outputs = model(inputs)
+  # Forward pass
+  outputs = model(inputs)
 
-    # Get prediction
-    # torch.max returns both max and argmax
-    _, predictions = torch.max(outputs, 1)
+  # Get prediction
+  # torch.max returns both max and argmax
+  _, predictions = torch.max(outputs, 1)
 
-    # update counts
-    n_correct += (predictions == targets).sum().item()
-    n_total += targets.shape[0]
+  # update counts
+  n_correct += (predictions == targets).sum().item()
+  n_total += targets.shape[0]
 
 train_acc = n_correct / n_total
+
 
 n_correct = 0.
 n_total = 0.
 for inputs, targets in test_loader:
-    # Move to GPU
-    inputs, targets = inputs.to(device), targets.to(device)
+  # Move to GPU
+  inputs, targets = inputs.to(device), targets.to(device)
 
-    # Forward pass
-    outputs = model(inputs)
+  # Forward pass
+  outputs = model(inputs)
 
-    # Get prediction
-    # torch.max returns both max and argmax
-    _, predictions = torch.max(outputs, 1)
+  # Get prediction
+  # torch.max returns both max and argmax
+  _, predictions = torch.max(outputs, 1)
 
-    # update counts
-    n_correct += (predictions == targets).sum().item()
-    n_total += targets.shape[0]
+  # update counts
+  n_correct += (predictions == targets).sum().item()
+  n_total += targets.shape[0]
 
 test_acc = n_correct / n_total
 print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
@@ -245,23 +252,23 @@ transformer_test = transforms.ToTensor()
 
 # Function to predict class of a single image
 def predict_image(image_path, model, transformers):
-    # Load and transform the image
-    image = Image.open(image_path)
-    image = transformer(image).unsqueeze # Add batch dimension
+  # Load and transform the image
+  image = Image.open(image_path)
+  image = transformer(image).unsqueeze # Add batch dimension
 
-    # Move the image to the GPU
-    image = image.to(device)
+  # Move the image to the GPU
+  image = image.to(device)
 
-    # Set model to evaluation mode
-    model.eval()
+  # Set model to evaluation mode
+  model.eval()
 
-    # Perform the inference
-    outputs = model(inputs)
-    _, predicted = torch.max(outputs, 1)
+  # Perform the inference
+  outputs = model(inputs)
+  _, predicted = torch.max(outputs, 1)
 
-    # Map prediction to class name
-    predicted_class = predicted.item()
-    return predicted_class
+  # Map prediction to class name
+  predicted_class = predicted.item()
+  return predicted_class
 
 
 # Load the trained model
