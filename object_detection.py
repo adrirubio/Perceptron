@@ -8,6 +8,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+from google.colab import files
+
+# Trigger the file upload dialog
+uploaded = files.upload()
+
+# Get the filename of the uploaded image
+image_path = list(uploaded.keys())[0]
+
 # Define transformations for data augmentation and normalization
 transformer_train = transforms.Compose([
   transforms.RandomCrop(32, padding=4),
@@ -359,6 +367,4 @@ def infer_and_display(image_path, model, transform, device):
   plt.axis("off")
   plt.show()
 
-# Example usage
-image_path = "path/to/your/image.jpg"  # Replace with the path to your image
 infer_and_display(image_path, model, transformer_test, device)
