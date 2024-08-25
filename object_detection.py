@@ -366,4 +366,12 @@ def infer_and_display(image_path, model, transform, device):
   plt.axis("off")
   plt.show()
 
+print("Original Image:")
+# Load an image from a file
+img = Image.open("image_path")
+
+# Display the image
+img.show()
+
+print("Modified Image:")
 infer_and_display(image_path, model, transformer_test, device)
