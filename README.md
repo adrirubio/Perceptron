@@ -133,9 +133,9 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 Here’s a demo of the project in action:
 
-### 1. CNN Demo
+### 1. CNN Demo 📸
 
-### 2. Object Detection Demo
+### 2. Object Detection Demo 📸
 
 --> ***Transfer learning model and manual commands demo coming soon...***
 
