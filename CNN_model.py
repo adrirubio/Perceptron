@@ -275,7 +275,7 @@ model.load_state_dict(torch.load(model_save_path))
 
 print("Original Image:")
 # Load an image from a file
-img = Image.open("image_path")
+img = Image.open(image_path)
 
 # Display the image
 img.show()
