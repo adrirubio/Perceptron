@@ -69,19 +69,19 @@ Perceptron is not only capable of holding conversations, but it can also perform
 2. **Load the trained models**:
    - Run the following code to load the weights:
 
-   ```python
-   # Load transfer learning model
-   gpt2_model_path = "gpt2_dailydialog.pt"
-   gpt2_model.load_state_dict(torch.load(gpt2_model_path))
+     ```python
+     # Load transfer learning model
+     gpt2_model_path = "gpt2_dailydialog.pt"
+     gpt2_model.load_state_dict(torch.load(gpt2_model_path))
 
-    # Load CNN model
-    cnn_model_path = "cnn_cifar100_model.pth"
-    cnn_model.load_state_dict(torch.load(cnn_model_path))
+      # Load CNN model
+      cnn_model_path = "cnn_cifar100_model.pth"
+      cnn_model.load_state_dict(torch.load(cnn_model_path))
 
-    # Load Object Detection model
-    object_detection_model_path = "object_detection_model.pth"
-    object_detection_model.load_state_dict(torch.load(object_detection_model_path))
-    ```
+      # Load Object Detection model
+      object_detection_model_path = "object_detection_model.pth"
+      object_detection_model.load_state_dict(torch.load(object_detection_model_path))
+      ```
 
 3. **Run Perceptron**:
     - Next run the following script to start using Perceptron:
