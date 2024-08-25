@@ -69,7 +69,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 
 4. **Run Perceptron**:
-    - After all models are trained, run the following script to start using Perceptron:
+    - Next run the following script to start using Perceptron:
 
       ```python
       !pip install transformers
