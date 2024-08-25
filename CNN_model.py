@@ -273,5 +273,12 @@ def predict_image(image_path, model, transformers):
 # Load the trained model
 model.load_state_dict(torch.load(model_save_path))
 
+print("Original Image:")
+# Load an image from a file
+img = Image.open("image_path")
+
+# Display the image
+img.show()
+
 predicted_class = predict_image(image_path, model, transformer_test)
 print(f"The predicted class for the image is: {predicted_class}")
