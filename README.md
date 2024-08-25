@@ -66,6 +66,10 @@ Perceptron is not only capable of holding conversations, but it can also perform
       %cd perceptron
       ```
 
+2. **Load the trained models**:
+   - Run the following code to load the weights:
+
+   
 
 
 4. **Run Perceptron**:
