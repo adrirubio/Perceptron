@@ -17,6 +17,7 @@ import vlc
 import random
 import os
 from pywttr import Wttr
+from google.colab import files
 
 # Function for Perceptron's voice
 def say(text):
@@ -311,8 +312,11 @@ while True:
 
             elif "image" in text:
                 # Predicts the class of an image
-                say("Please input your image path")
-                image_path = input("Input your image path: ")
+                # Trigger the file upload dialog
+                uploaded = files.upload()
+
+                # Get the filename of the uploaded image
+                image_path = list(uploaded.keys())[0]
                 predicted_class = predict_image(image_path, cnn_model, transformer_test)
                 print(f"The predicted class for the image is: {predicted_class}")
                 say(f"The predicted class for the image is: {predicted_class}")
