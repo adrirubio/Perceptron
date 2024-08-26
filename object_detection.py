@@ -167,7 +167,7 @@ print(device)
 # Define the losses and optimizer
 criterion_class = nn.CrossEntropyLoss()
 criterion_bbox = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
 # Training loop  a bit modified
 def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, test_loader, epochs):
