@@ -6,13 +6,6 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
-from google.colab import files
-
-# Trigger the file upload dialog
-uploaded = files.upload()
-
-# Get the filename of the uploaded image
-image_path = list(uploaded.keys())[0]
 
 # Define transformations for data augmentation and normalization
 transformer_train = transforms.Compose([
@@ -273,12 +266,13 @@ def predict_image(image_path, model, transformers):
 # Load the trained model
 model.load_state_dict(torch.load(model_save_path))
 
+image_path = input("What is your image's path: ")
+
 print("Original Image:")
 # Load an image from a file
 img = Image.open(image_path)
 
 # Display the image
 img.show()
-
 predicted_class = predict_image(image_path, model, transformer_test)
 print(f"The predicted class for the image is: {predicted_class}")
