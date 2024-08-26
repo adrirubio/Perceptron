@@ -15,17 +15,21 @@ uploaded = files.upload()
 # Get the filename of the uploaded image
 image_path = list(uploaded.keys())[0]
 
-# Define transformations for data augmentation and normalization
 transformer_train = transforms.Compose([
-  transforms.RandomCrop(32, padding=4),
-  transforms.RandomHorizontalFlip(),
-  transforms.RandomAffine(0, translate=(0.1, 0.1)),
-  transforms.ToTensor(),
+    transforms.Resize((256, 256)),  # Resize to a fixed size
+    transforms.RandomResizedCrop(224),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(15),  # Random rotation within 15 degrees
+    transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),  # Apply color jitter
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
 transformer_test = transforms.Compose([
-  transforms.Resize((32, 32)),  # Resize to a fixed size
-  transforms.ToTensor(),
+    transforms.Resize((256, 256)),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
 # Define paths to the image and annotation files
