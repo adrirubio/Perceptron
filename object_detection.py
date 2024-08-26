@@ -7,13 +7,6 @@ from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
-from google.colab import files
-
-# Trigger the file upload dialog
-uploaded = files.upload()
-
-# Get the filename of the uploaded image
-image_path = list(uploaded.keys())[0]
 
 transformer_train = transforms.Compose([
     transforms.Resize((256, 256)),  # Resize to a fixed size
@@ -369,6 +362,8 @@ def infer_and_display(image_path, model, transform, device):
   plt.imshow(image)
   plt.axis("off")
   plt.show()
+
+image_path = input("Input your image's path: ")
 
 print("Original Image:")
 # Load an image from a file
