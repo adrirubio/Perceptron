@@ -66,24 +66,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
       %cd perceptron
       ```
 
-2. **Load the trained models**:
-   - Run the following code to load the weights:
-
-     ```python
-     # Load transfer learning model
-     gpt2_model_path = "gpt2_dailydialog.pt"
-     gpt2_model.load_state_dict(torch.load(gpt2_model_path))
-
-      # Load CNN model
-      cnn_model_path = "cnn_cifar100_model.pth"
-      cnn_model.load_state_dict(torch.load(cnn_model_path))
-
-      # Load Object Detection model
-      object_detection_model_path = "object_detection_model.pth"
-      object_detection_model.load_state_dict(torch.load(object_detection_model_path))
-      ```
-
-3. **Run Perceptron**:
+2. **Run Perceptron**:
     - Next run the following script to start using Perceptron:
 
       ```python
@@ -101,7 +84,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
       %run Perceptron.py
       ```
 
-4. **Enjoy!**:
+3. **Enjoy!**:
     - Your Perceptron AI assistant is now up and running!!!
     - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) is a bit outdated and as lately I have been working on the AI models the inference code and manual commands might have some flaws.
 
