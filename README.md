@@ -58,13 +58,10 @@ Perceptron is not only capable of holding conversations, but it can also perform
 ### Installation
 
 1. **Clone the Repository**:
-    - Open [Google Colab](https://colab.research.google.com/) in your browser.
-    - Start a new notebook and run the following code to clone the repository and navigate to the `"Perceptron"` directory:
+    - To get started, clone this repository to your local machine using the following command:
 
-      ```python
-      !git clone https://github.com/adrirubio/Perceptron.git
-      %cd perceptron
-      ```
+      ```bash
+      git clone https://github.com/your-username/your-repo-name.git
 
 2. **Run Perceptron**:
     - Next run the following script to start using Perceptron:
