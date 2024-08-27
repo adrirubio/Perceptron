@@ -61,7 +61,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
     - To get started, clone this repository to your local machine using the following command:
 
       ```bash
-      git clone https://github.com/your-username/your-repo-name.git
+      git clone https://github.com/adrirubio/Perceptron.git
 
 2. **Run Perceptron**:
     - Next run the following script to start using Perceptron:
