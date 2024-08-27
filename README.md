@@ -83,11 +83,12 @@ Perceptron is not only capable of holding conversations, but it can also perform
 
 3. **Enjoy!**:
     - Your Perceptron AI assistant is now up and running!!!
-    - Please note that the AI models that work are the following:
+    - Please note that the AI models that work are the following (the others are still being built):
       `"CNN_model"`
       `"transfer_learning_model"`
       `"object_detection_model"`
-    - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) is a bit outdated and as lately I have been working on the AI models the inference code and manual commands might have some flaws.
+    - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) is a bit outdated and as lately I have       been focusing on the AI models the inference code and manual commands might have some bugs.
+    - Sorry that Perceptron is not yet fully functional.
 
 ---
 
