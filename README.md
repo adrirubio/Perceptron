@@ -3,7 +3,7 @@
 ### The Ultimate AI-Powered Assistant
 ***The Goal***
 
-**Perceptron** is a cutting-edge AI-powered assistant that combines multiple AI models into a single, powerful tool. By simply invoking its name, "Perceptron," you can trigger various actions—from having a conversation to performing complex image analysis. With integrated models for sentiment analysis, image recognition, object detection, and OCR (Optical Character Recognition), Perceptron is designed to make your interactions as seamless and intelligent as possible.
+**Perceptron** aims to be a cutting-edge AI-powered assistant that will seamlessly combine multiple AI models into a single, powerful tool. As I continue to develop it, the goal is that by simply invoking the name "Perceptron," you'll be able to trigger a wide range of actions—from engaging in conversations to performing complex image analysis. I am working towards integrating models for sentiment analysis, image recognition, object detection, and OCR (Optical Character Recognition) to ensure that your interactions with Perceptron are as seamless and intelligent as possible.
 
 ***Some features are still work in progress***
 
@@ -107,7 +107,8 @@ Here’s a demo of Perceptron in action:
 
 ## 📖 Background
 
-Perceptron brings together the power of various AI models to create an interactive, and intelligent assistant. Whether you're analyzing images, detecting objects, recognizing text, or simply having a conversation, Perceptron is designed to provide seamless integration of these functionalities. This project demonstrates the potential of AI to enhance user experiences through natural language processing and advanced image analysis.
+
+**Perceptron** is on its way to becoming an interactive and intelligent assistant by harnessing the power of various AI models. Whether it's analyzing images, detecting objects, recognizing text, or having a conversation, I'm working to ensure Perceptron will seamlessly integrate these functionalities. This ongoing project highlights the potential of AI to enhance user experiences through natural language processing and advanced image analysis.
 
 ---
 
