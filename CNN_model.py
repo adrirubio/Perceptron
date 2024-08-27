@@ -268,11 +268,15 @@ model.load_state_dict(torch.load(model_save_path))
 
 image_path = input("What is your image's path: ")
 
-print("Original Image:")
-# Load an image from a file
-img = Image.open(image_path)
+image = Image.open(image_path).convert("RGB")
 
+print("Original Image:")
+
+print("Original Image:")
 # Display the image
-img.show()
+plt.imshow(image)
+plt.axis('off')  # Optional: turns off the axis
+plt.show()
+
 predicted_class = predict_image(image_path, model, transformer_test)
 print(f"The predicted class for the image is: {predicted_class}")
