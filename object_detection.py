@@ -365,10 +365,12 @@ def infer_and_display(image_path, model, transform, device):
 
 image_path = input("Input your image's path: ")
 
+image = Image.open(image_path).convert("RGB")
+
 print("Original Image:")
 
 # Display the image
-plt.imshow(image_path)
+plt.imshow(image)
 plt.axis('off')  # Optional: turns off the axis
 plt.show()
 
