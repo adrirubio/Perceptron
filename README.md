@@ -112,6 +112,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
 Here’s a demo of Perceptron in action:
 
 ### 1. CNN Demo 📸
+https://cloud-6knwch9wm-hack-club-bot.vercel.app/0captura_de_pantalla_2024-08-27_162100.png
 
 ### 2. Object Detection Demo 📸
 
