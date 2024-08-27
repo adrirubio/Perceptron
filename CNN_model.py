@@ -272,7 +272,6 @@ image = Image.open(image_path).convert("RGB")
 
 print("Original Image:")
 
-print("Original Image:")
 # Display the image
 plt.imshow(image)
 plt.axis('off')  # Optional: turns off the axis
