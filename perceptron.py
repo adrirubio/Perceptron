@@ -1,4 +1,4 @@
-# Add necessary imports:
+# Add necessary imports
 import torch
 import torch.nn as nn
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
