@@ -3,7 +3,7 @@
 ### The Ultimate AI-Powered Assistant
 ***The Goal***
 
-**Perceptron** aims to be a cutting-edge AI-powered assistant that will seamlessly combine multiple AI models into a single, powerful tool. As I continue to develop it, the goal is that by simply invoking the name "Perceptron," you'll be able to trigger a wide range of actions—from engaging in conversations to performing complex image analysis. I am working towards integrating models for sentiment analysis, image recognition, object detection, and OCR (Optical Character Recognition) to ensure that your interactions with Perceptron are as seamless and intelligent as possible.
+**Perceptron** aims to be a cutting-edge AI-powered assistant that will seamlessly combine multiple AI models into a single, powerful tool. As I continue to develop it, the goal is that by simply invoking the name "Perceptron," you'll be able to trigger a wide range of actions—from engaging in conversations to performing complex image analysis. I am working towards integrating models for transfer learning, sentiment analysis, image recognition, object detection, and OCR (Optical Character Recognition) to ensure that your interactions with Perceptron are as seamless and intelligent as possible.
 
 ***Some features are still work in progress*** 
 
