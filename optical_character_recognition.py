@@ -114,7 +114,7 @@ for batch in train_loader:
 
 # Display some examples from the test_loader
 print("\nTesting batch examples")
-for batch in test_loader:
+for batch in test_loader: 
     inputs, targets = batch["image"], batch["text"]
     print(inputs)
     print(targets)
