@@ -320,6 +320,6 @@ def inference(model, image, label_encoder):
 # Example usage with a test image
 test_image = Image.open("path_to_test_image.jpg").convert("RGB")
 
-# Perform inference
+# Perform inference and print the prediction
 predicted_label = inference(model, test_image, label_encoder)
 print(f"Predicted Label: {predicted_label}")
