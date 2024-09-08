@@ -13,6 +13,7 @@ from sklearn.preprocessing import LabelEncoder
 # Load the IAM Handwriting dataset
 dataset = load_dataset("Teklia/IAM-line")
 
+# Apply transformations
 transform_train = transforms.Compose([
     transforms.RandomCrop(32, padding=4),
     transforms.RandomHorizontalFlip(),
