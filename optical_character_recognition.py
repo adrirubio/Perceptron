@@ -20,7 +20,7 @@ transform_train = transforms.Compose([
     transforms.RandomAffine(0, translate=(0.1, 0.1)),
     transforms.ToTensor(),
 ])
-
+ 
 transform_test = transforms.Compose([
     transforms.Resize((32, 32)),  # Resize to a fixed size
     transforms.ToTensor(),
