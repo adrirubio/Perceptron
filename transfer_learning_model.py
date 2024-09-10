@@ -7,6 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+trust_remote_code = True
+
 # Load DailyDialog dataset
 dataset = load_dataset('daily_dialog')
 
