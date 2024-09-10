@@ -1,4 +1,6 @@
 import torch
+print(torch.version.cuda)  # This should show the CUDA version PyTorch is using
+print(torch.cuda.is_available())  # This should return True
 import torch.nn as nn
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, Trainer, TrainingArguments
 from datasets import load_dataset
