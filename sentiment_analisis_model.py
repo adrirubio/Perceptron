@@ -170,12 +170,12 @@ plt.legend()
 plt.show()
 
 # Save model
-model_save_path = "sentiment_analisis_model.pth"
+model_save_path = "/home/adrian/Documents/Perceptron/model_weights/sentiment_analisis_model.pth"
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
 
 # Save the tokenizer
-tokenizer_save_path = "sentiment_analysis_tokenizer"
+tokenizer_save_path = "/home/adrian/Documents/Perceptron/model_weights/sentiment_analysis_tokenizer"
 tokenizer.save_pretrained(tokenizer_save_path)
 print(f"Tokenizer saved to {tokenizer_save_path}")
 

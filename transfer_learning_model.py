@@ -144,7 +144,7 @@ train_losses, test_losses = batch_gd(
     optimizer,
     train_loader,
     test_loader,
-    epochs=10, # change number of epochs
+    epochs=10,
 )
 
 # Plot the train loss and test loss
@@ -154,7 +154,7 @@ plt.legend()
 plt.show()
 
 # Save the model
-model_save_path = 'gpt2_daily_dialog_model.pth'
+model_save_path = "/home/adrian/Documents/Perceptron/model_weights/gpt2_daily_dialog_model.pth"
 torch.save(model.state_dict(), model_save_path)
 print(f'Model saved to {model_save_path}')
 

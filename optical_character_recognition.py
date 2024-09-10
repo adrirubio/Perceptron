@@ -150,7 +150,7 @@ class OCR(nn.Module):
             nn.BatchNorm2d(512)
         )
         self.pool = nn.MaxPool2d(2)
-        
+
         # LSTM for sequence prediction
         self.lstm = nn.LSTM(input_size=512 * 4 * 4, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
         self.fc = nn.Linear(hidden_size, num_classes)
@@ -162,11 +162,11 @@ class OCR(nn.Module):
         x = self.pool(self.conv4(x))
         x = self.pool(self.conv5(x))
         x = x.view(x.size(0), x.size(1), -1)  # Flatten the feature maps
-        
+
         # LSTM for sequence prediction
         x, _ = self.lstm(x)
         x = self.fc(x[:, -1, :])  # Use the output of the last time step
-        
+
         return x
 
 # Example usage
@@ -250,7 +250,7 @@ plt.legend()
 plt.show()
 
 # Save model
-model_save_path = "optical_character_recognition"
+model_save_path = "/home/adrian/Documents/Perceptron/model_weights/optical_character_recognition"
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
 
@@ -305,7 +305,7 @@ def inference(model, image, label_encoder):
 
     # Preprocess the input image using the pre-defined transform_test
     image = transform_test(image).unsqueeze(0).to(device)  # Add batch dimension and move to the device
-    
+
     with torch.no_grad():
         # Forward pass
         output = model(image)
@@ -315,7 +315,7 @@ def inference(model, image, label_encoder):
 
         # Decode the label
         predicted_label = label_encoder.inverse_transform(predicted_idx.cpu().numpy())
-    
+
     return predicted_label[0]
 
 # Example usage with a test image
