@@ -215,27 +215,27 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load GPT-2 tokenizer and model
 gpt2_tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 gpt2_model = GPT2LMHeadModel.from_pretrained('gpt2')
-gpt2_model_path = "gpt2_dailydialog.pt"
+gpt2_model_path = "/home/adrian/Documents/Perceptron/model_weights/gpt2_dailydialog.pt"
 gpt2_model.load_state_dict(torch.load(gpt2_model_path))
 gpt2_model.to(device).eval()
 
 # Load CNN model
-cnn_model_path = "cnn_cifar100_model.pth"
+cnn_model_path = "/home/adrian/Documents/Perceptron/model_weights/cnn_cifar100_model.pth"
 cnn_classes = 100
 cnn_model = CNN(cnn_classes)
 cnn_model.load_state_dict(torch.load(cnn_model_path))
 cnn_model.to(device).eval()
 
 # Load Object Detection model
-object_detection_model_path = "object_detection_model.pth"
+object_detection_model_path = "/home/adrian/Documents/Perceptron/model_weights/object_detection_model.pth"
 num_classes = 91
 object_detection_model = ObjectDetection(num_classes)
 object_detection_model.load_state_dict(torch.load(object_detection_model_path))
 object_detection_model.to(device).eval()
 
 # Load BERT tokenizer and model
-bert_tokenizer_path = "sentiment_analysis_tokenizer"
-bert_model_path = "sentiment_analysis_model.pt"
+bert_tokenizer_path = "/home/adrian/Documents/Perceptron/model_weights/sentiment_analysis_tokenizer"
+bert_model_path = "/home/adrian/Documents/Perceptron/model_weights/sentiment_analysis_model.pt"
 bert_tokenizer = BertTokenizer.from_pretrained(bert_tokenizer_path)
 bert_model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
 bert_model.load_state_dict(torch.load(bert_model_path))
@@ -251,8 +251,8 @@ transformer_test = transforms.ToTensor()
 
 while True:
     try:
-        with sr.Microphone() as source:                                                                       
-            print("Speak:")                                                                                   
+        with sr.Microphone() as source:
+            print("Speak:")
             audio = recorder.listen(source)
         print("Recognizing:")
         text = recorder.recognize_google(audio)
@@ -329,9 +329,9 @@ while True:
                 prediction = predict_sentence(bert_model, bert_tokenizer, text)
                 print(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
                 say(f"Sentence: {text} => Prediction: {"Positive" if prediction == 1 else "Negative"}")
-                
+
     except sr.UnknownValueError:
         print("UnknownValueError")
         pass
     except sr.RequestError:
-        print("RequestError")        
+        print("RequestError")
