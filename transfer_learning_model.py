@@ -37,6 +37,9 @@ if dataset:
 train_dialog = dataset['train']['dialog']
 test_dialog = dataset['test']['dialog']
 
+print(f"Train set size: {len(dataset['train'])}")
+print(f"Test set size: {len(dataset['test'])}")
+
 # Create custom Dataset class
 class DailyDialogDataset(Dataset):
     def __init__(self, dialogues, tokenizer, max_length=512):
@@ -59,7 +62,7 @@ train_dataset = DailyDialogDataset(train_dialog, tokenizer)
 test_dataset = DailyDialogDataset(test_dialog, tokenizer)
 
 # Create batches for optimizing computational efficiency
-batch_size = 1
+batch_size = 8
 train_loader = torch.utils.data.DataLoader(
     train_dataset,
     batch_size=batch_size,
