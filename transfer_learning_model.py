@@ -129,7 +129,7 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
             shift_labels = targets[..., 1:].contiguous()
             loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
             test_loss.append(loss.item())
-        test_loss = np.mean(test_loss)
+            test_loss = np.mean(test_loss)
 
         # Save losses
         train_losses[it] = train_loss
