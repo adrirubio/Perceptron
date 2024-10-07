@@ -31,7 +31,7 @@ def generate_response(prompt, model, tokenizer):
 prompt = "Hello, what are you up to?"
 if dataset:
     response = generate_response(prompt, model, tokenizer)
-    print("Question:", response)
+    print(response)
 
 # Access the dialog sections
 train_dialog = dataset['train']['dialog']
