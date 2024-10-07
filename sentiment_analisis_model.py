@@ -50,7 +50,6 @@ train_attention_masks = torch.tensor(train_encodings["attention_mask"])
 test_input_ids = torch.tensor(test_encodings["input_ids"])
 test_attention_masks = torch.tensor(test_encodings["attention_mask"])
 
-
 # Create tensor datasets
 train_dataset = TensorDataset(train_input_ids, train_attention_masks, train_labels)
 test_dataset = TensorDataset(test_input_ids, test_attention_masks, test_labels)
@@ -68,7 +67,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=batch_size,
                                           shuffle=False)
 
-# Display some examples from the DataLoader
+# Display one example from each DataLoader
 print("Training Batch Example:")
 for batch in train_loader:
     print(batch)
