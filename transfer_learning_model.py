@@ -1,4 +1,5 @@
 import torch
+# Clear CUDA memory
 torch.cuda.empty_cache()
 import torch.nn as nn
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, Trainer, TrainingArguments
