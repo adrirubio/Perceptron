@@ -89,7 +89,7 @@ Perceptron is not only capable of holding conversations, but it can also perform
       `"transfer_learning_model"`
       `"object_detection_model"`
     - Though please do be aware the three models named above train and work flawlessly, but the actual inference code (Perceptron.py) is a bit outdated and as lately I have       been focusing on the AI models the inference code and manual commands might have some bugs.
-    - Sorry that Perceptron is not yet fully functional.
+    - Sorry that Perceptron is not yet fully functional. I'm working my hardest.
 
 ---
 
