@@ -176,7 +176,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
             continue
           # Move data to GPU
           inputs = inputs.to(device)
-            
+
           # Extract annotations
           labels = []
           bbox_targets = []
@@ -184,7 +184,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
             if len(target) > 0:
               labels.append(target[0]['category_id'])  # Get category ids
               bbox_targets.append(target[0]['bbox'])  # Get bounding boxes
-            
+
           # Convert to tensor
           labels = torch.tensor(labels, dtype=torch.long).to(device)
           bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
@@ -223,7 +223,7 @@ def batch_gd(model, criterion_class, criterion_bbox, optimizer, train_loader, te
               if len(target) > 0:
                 labels.append(target[0]['category_id'])  # Get category ids
                 bbox_targets.append(target[0]['bbox'])  # Get bounding boxes
-            
+
             # Convert to tensor
             labels = torch.tensor(labels, dtype=torch.long).to(device)
             bbox_targets = torch.tensor(bbox_targets, dtype=torch.float32).to(device)
@@ -267,7 +267,7 @@ n_total = 0
 for inputs, targets in train_loader:
   if inputs.size(0) == 0:
     continue
-  
+
   # Move data to GPU
   inputs = inputs.to(device)
 
@@ -292,7 +292,7 @@ for inputs, targets in train_loader:
   # Update counts
   n_correct += (predictions == labels).sum().item()
   n_total += labels.size(0)
-  
+
 train_acc = n_correct / n_total
 
 n_correct = 0
@@ -325,14 +325,14 @@ for inputs, targets in test_loader:
   # Update counts
   n_correct += (predictions == labels).sum().item()
   n_total += labels.size(0)
-  
+
 test_acc = n_correct / n_total
 print(f"Train acc: {train_acc:.4f}, Test acc: {test_acc:.4f}")
 
 def infer_and_display(image_path, model, transform, device):
   # Load the image
   image = Image.open(image_path).convert("RGB")
-  
+
   # Apply transformations
   image_tensor = transform(image).unsqueeze(0).to(device)
 
@@ -345,7 +345,7 @@ def infer_and_display(image_path, model, transform, device):
   if len(bbox_preds) != 4:
     print("Error: Bounding box predictions are not in correct format.")
     return
-  
+
   # Convert bbox from [xmin, ymin, width, height] to [xmin, ymin, xmax, ymax]
   bbox = [bbox_preds[0], bbox_preds[1], bbox_preds[0] + bbox_preds[2], bbox_preds[1] + bbox_preds[3]]
 
