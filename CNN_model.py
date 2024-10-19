@@ -160,30 +160,31 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
         model.eval()
         test_loss = []
-        for inputs, targets in test_loader:
-      
-            # Move data to the GPU
-            inputs, targets = inputs.to(device), targets.to(device)
+        with torch.no_grad():
+            for inputs, targets in test_loader:
 
-            # Forward pass
-            outputs = model(inputs)
-            loss = criterion(outputs, targets)
+                # Move data to the GPU
+                inputs, targets = inputs.to(device), targets.to(device)
 
-            test_loss.append(loss.item())
-    
-        # Get test loss
-        test_loss = np.mean(test_loss)
+                # Forward pass
+                outputs = model(inputs)
+                loss = criterion(outputs, targets)
 
-        # Save losses
-        train_losses[it] = train_loss
-        test_losses[it] = test_loss
+                test_loss.append(loss.item())
 
-        dt = datetime.now() - t0
-      
-        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
-              f'Test Loss: {test_loss:.4f}, Duration: {dt}')
-    
-    return train_losses, test_losses
+                # Get test loss
+                test_loss = np.mean(test_loss)
+
+                # Save losses
+                train_losses[it] = train_loss
+                test_losses[it] = test_loss
+
+                dt = datetime.now() - t0
+
+                print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
+                      f'Test Loss: {test_loss:.4f}, Duration: {dt}')
+
+                return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
     model, criterion, optimizer, train_loader, test_loader, epochs=80)
