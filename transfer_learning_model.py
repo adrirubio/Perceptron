@@ -1,5 +1,4 @@
 import torch
-# Clear CUDA memory for GPU improvement
 torch.cuda.empty_cache()
 import torch.nn as nn
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, Trainer, TrainingArguments
@@ -63,7 +62,7 @@ train_dataset = DailyDialogDataset(train_dialog, tokenizer)
 test_dataset = DailyDialogDataset(test_dialog, tokenizer)
 
 # Create batches for optimizing computational efficiency
-batch_size = 8
+batch_size = 1
 train_loader = torch.utils.data.DataLoader(
     train_dataset,
     batch_size=batch_size,
@@ -72,7 +71,6 @@ train_loader = torch.utils.data.DataLoader(
 test_loader = torch.utils.data.DataLoader(
     test_dataset,
     batch_size=batch_size,
-    shuffle=False
 )
 
 # Unfreeze some layers
@@ -89,67 +87,58 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5, weight_decay=0.01)  # Adding weight decay
 
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
-    # Arrays to store the loss values for each epoch
     train_losses = np.zeros(epochs)
     test_losses = np.zeros(epochs)
-
     for it in range(epochs):
-        # Set datetime
         t0 = datetime.now()
         train_loss = []
-        model.train() # Set model to training mode
-        for inputs, targets in train_loader:
-            # Move data to GPU if available
+        model.train()
+        total_batches = len(train_loader)
+        for batch_idx, (inputs, targets) in enumerate(train_loader):
             inputs, targets = inputs.to(device), targets.to(device)
-
-            # Zero the parameter gradients
             optimizer.zero_grad()
-
-            # Forward pass
             outputs = model(inputs)
-            logits = outputs.logits  # Extract the logits
+            logits = outputs.logits
             shift_logits = logits[..., :-1, :].contiguous()
             shift_labels = targets[..., 1:].contiguous()
             loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
-
-            # Backward and optimize
             loss.backward()
             optimizer.step()
-
             train_loss.append(loss.item())
 
-        # Get train loss and test loss
-        train_loss = np.mean(train_loss) # a little misleading
+            # Print progress every 10% of batches
+            if (batch_idx + 1) % max(1, total_batches // 10) == 0:
+                print(f'Epoch {it+1}/{epochs}, Batch {batch_idx+1}/{total_batches}, Train Loss: {loss.item():.4f}')
 
+        train_loss = np.mean(train_loss)
         test_loss = []
-        model.eval() # Set model to evaluation mode
-        for inputs, targets in test_loader:
-            inputs, targets = inputs.to(device), targets.to(device)
-            outputs = model(inputs)
-            logits = outputs.logits  # Extract the logits
-            shift_logits = logits[..., :-1, :].contiguous()
-            shift_labels = targets[..., 1:].contiguous()
-            loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
-            test_loss.append(loss.item())
-            test_loss = np.mean(test_loss)
+        model.eval()
+        with torch.no_grad():
+            for inputs, targets in test_loader:
+                inputs, targets = inputs.to(device), targets.to(device)
+                outputs = model(inputs)
+                logits = outputs.logits
+                shift_logits = logits[..., :-1, :].contiguous()
+                shift_labels = targets[..., 1:].contiguous()
+                loss = criterion(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+                test_loss.append(loss.item())
+        test_loss = np.mean(test_loss)
 
-        # Save losses
         train_losses[it] = train_loss
         test_losses[it] = test_loss
-
         dt = datetime.now() - t0
-        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, \
-          Test Loss: {test_loss:.4f}, Duration: {dt}')
+        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Duration: {dt}')
 
     return train_losses, test_losses
 
+# Usage
 train_losses, test_losses = batch_gd(
     model,
     criterion,
     optimizer,
     train_loader,
     test_loader,
-    epochs=10,
+    epochs=5,
 )
 
 # Plot the train loss and test loss
