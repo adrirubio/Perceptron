@@ -147,8 +147,6 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
             outputs = model(inputs)
             loss = criterion(outputs, targets)
 
-            loss = criterion(outputs, targets)
-
             # Backward and optimize
             loss.backward()
             optimizer.step()
@@ -181,10 +179,10 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
 
                 dt = datetime.now() - t0
 
-                print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
-                      f'Test Loss: {test_loss:.4f}, Duration: {dt}')
+        print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
+                f'Test Loss: {test_loss:.4f}, Duration: {dt}')
 
-                return train_losses, test_losses
+    return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
     model, criterion, optimizer, train_loader, test_loader, epochs=80)
