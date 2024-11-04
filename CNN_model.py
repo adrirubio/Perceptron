@@ -173,11 +173,11 @@ def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
                 # Get test loss
                 test_loss = np.mean(test_loss)
 
-                # Save losses
-                train_losses[it] = train_loss
-                test_losses[it] = test_loss
+        # Save losses
+        train_losses[it] = train_loss
+        test_losses[it] = test_loss
 
-                dt = datetime.now() - t0
+        dt = datetime.now() - t0
 
         print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
                 f'Test Loss: {test_loss:.4f}, Duration: {dt}')
