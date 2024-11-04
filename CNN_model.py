@@ -131,61 +131,65 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 def batch_gd(model, criterion, optimizer, train_loader, test_loader, epochs):
     train_losses = np.zeros(epochs)
     test_losses = np.zeros(epochs)
-
+    
     for it in range(epochs):
-        model.train() # Set model to training mode
+        model.train()  # Set model to training mode
         t0 = datetime.now()
         train_loss = []
+        
         for inputs, targets in train_loader:
             # move data to GPU
             inputs, targets = inputs.to(device), targets.to(device)
-
+            
             # zero the parameter gradients
             optimizer.zero_grad()
-
+            
             # Forward pass
             outputs = model(inputs)
             loss = criterion(outputs, targets)
-
+            
             # Backward and optimize
             loss.backward()
             optimizer.step()
-
+            
             train_loss.append(loss.item())
-
+        
         # Get train loss and test loss
-        train_loss = np.mean(train_loss) # a little misleading
-
+        train_loss = np.mean(train_loss)  # a little misleading
+        
         model.eval()
         test_loss = []
         with torch.no_grad():
             for inputs, targets in test_loader:
-
                 # Move data to the GPU
                 inputs, targets = inputs.to(device), targets.to(device)
-
+                
                 # Forward pass
                 outputs = model(inputs)
                 loss = criterion(outputs, targets)
-
                 test_loss.append(loss.item())
-
-                # Get test loss
-                test_loss = np.mean(test_loss)
-
+            
+            # Get test loss
+            test_loss = np.mean(test_loss)
+        
         # Save losses
         train_losses[it] = train_loss
         test_losses[it] = test_loss
-
+        
         dt = datetime.now() - t0
-
         print(f'Epoch {it+1}/{epochs}, Train Loss: {train_loss:.4f}, '
-                f'Test Loss: {test_loss:.4f}, Duration: {dt}')
-
+              f'Test Loss: {test_loss:.4f}, Duration: {dt}')
+    
     return train_losses, test_losses
 
 train_losses, test_losses = batch_gd(
-    model, criterion, optimizer, train_loader, test_loader, epochs=80)
+    model, 
+    criterion, 
+    optimizer, 
+    train_loader, 
+    test_loader, 
+    epochs=80
+)
 
 # Plot the test and train loss
 plt.plot(train_losses, label="train loss")
