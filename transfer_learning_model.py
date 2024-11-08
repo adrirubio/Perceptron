@@ -153,8 +153,8 @@ torch.save(model.state_dict(), model_save_path)
 print(f'Model saved to {model_save_path}')
 
 # Accuracy
-n_correct = 0.
-n_total = 0.
+n_correct = 0
+n_total = 0
 for inputs, targets in train_loader:
     inputs, targets = inputs.to(device), targets.to(device)
 
@@ -173,8 +173,8 @@ for inputs, targets in train_loader:
 
 train_acc = n_correct / n_total
 
-n_correct = 0.
-n_total = 0.
+n_correct = 0
+n_total = 0
 for inputs, targets in test_loader:
     inputs, targets = inputs.to(device), targets.to(device)
 
